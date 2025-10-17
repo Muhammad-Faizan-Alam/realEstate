@@ -2,7 +2,18 @@ import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import AdminPropertyCard from "@/components/apartments/AdminPropertyCard";
+//  ${import.meta.env.VITE_API_URL}/user        (get all and delete users)
+// `${import.meta.env.VITE_API_URL}/
 
+
+
+
+
+// users
+// agencies
+// agents
+// verified properties
+// unverified properties
 const AdminDashboard = () => {
     const [properties, setProperties] = React.useState([]);
     useEffect(() => {

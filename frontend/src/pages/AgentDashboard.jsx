@@ -5,12 +5,13 @@ import AgentPropertyCard from '@/components/apartments/AgentPropertyCard'
 
 const AgentDashboard = () => {
     const [user, setUser] = useState();
+    const [agent, setAgent] = useState();
     const [isAgent, setIsAgent] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
     const [cityList, setCityList] = useState([]);
     const [cityInput, setCityInput] = useState("");
     const [loading, setLoading] = useState(false);
-    const [properties, setProperties] = React.useState([]);
+    const [properties, setProperties] = useState([]);
 
     // ✅ Fetch logged-in user
     useEffect(() => {

@@ -14,7 +14,55 @@ const slugify = (text: string) => {
     .replace(/[^\w-]+/g, "");
 };
 
-const AgencyPropertyCard = ({ property }) => {
+// Skeleton Component
+const AgencyPropertyCardSkeleton = () => {
+  return (
+    <Card className="overflow-hidden animate-pulse">
+      <div className="relative">
+        {/* Image Skeleton */}
+        <div className="aspect-[4/3] bg-gray-200"></div>
+      </div>
+      <CardContent className="p-4 space-y-3">
+        {/* Title Skeleton */}
+        <div className="space-y-2">
+          <div className="h-5 bg-gray-200 rounded w-3/4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+        </div>
+        
+        {/* Price Skeleton */}
+        <div className="h-7 bg-gray-200 rounded w-1/3"></div>
+        
+        {/* Features Skeleton */}
+        <div className="flex items-center gap-4">
+          {[1, 2, 3].map((item) => (
+            <div key={item} className="flex items-center gap-1">
+              <div className="w-4 h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded w-8"></div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Button Skeleton */}
+        <div className="flex gap-2 pt-2">
+          <div className="h-9 bg-gray-200 rounded flex-1"></div>
+          <div className="h-9 bg-gray-200 rounded flex-1"></div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const AgencyPropertyCard = ({ property, loading = false }) => {
+  // Show skeleton if loading
+  if (loading) {
+    return <AgencyPropertyCardSkeleton />;
+  }
+
+  // Show skeleton if no property data
+  if (!property) {
+    return <AgencyPropertyCardSkeleton />;
+  }
+
 //   const handleVerify = async () => {
 //     try {
 //       const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/verify/${property._id}`, {
@@ -138,3 +186,4 @@ const AgencyPropertyCard = ({ property }) => {
 };
 
 export default AgencyPropertyCard;
+export { AgencyPropertyCardSkeleton };
