@@ -1,13 +1,21 @@
 import React from 'react';
+import {
+  Home,
+  Users,
+  Handshake,
+  Building,
+  CheckCircle,
+  XCircle
+} from 'lucide-react';
 
 const Sidebar = ({ activeTab, setActiveTab, isMobile, setIsMobileOpen }) => {
   const menuItems = [
-    { id: 'home', name: 'Home', icon: '🏠' },
-    { id: 'users', name: 'Users', icon: '👥' },
-    { id: 'agents', name: 'Agents', icon: '🤝' },
-    { id: 'agencies', name: 'Agencies', icon: '🏢' },
-    { id: 'verified-properties', name: 'Verified Properties', icon: '✅' },
-    { id: 'unverified-properties', name: 'Unverified Properties', icon: '❌' }
+    { id: 'home', name: 'Home', icon: <Home className="w-5 h-5" /> },
+    { id: 'users', name: 'Users', icon: <Users className="w-5 h-5" /> },
+    { id: 'agents', name: 'Agents', icon: <Handshake className="w-5 h-5" /> },
+    { id: 'agencies', name: 'Agencies', icon: <Building className="w-5 h-5" /> },
+    { id: 'verified-properties', name: 'Verified Properties', icon: <CheckCircle className="w-5 h-5" /> },
+    { id: 'unverified-properties', name: 'Unverified Properties', icon: <XCircle className="w-5 h-5" /> },
   ];
 
   return (
@@ -38,7 +46,7 @@ const Sidebar = ({ activeTab, setActiveTab, isMobile, setIsMobileOpen }) => {
                       : 'text-gray-300 hover:bg-gray-700'
                   }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <span>{item.icon}</span>
                   <span>{item.name}</span>
                 </button>
               </li>
