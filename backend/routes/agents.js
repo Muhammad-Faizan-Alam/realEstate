@@ -10,5 +10,6 @@ router.post("/", agentController.createAgent);
 router.post("/bulk", agentController.bulkInsert);
 router.put("/:id", agentController.updateAgent);
 router.delete("/:id", agentController.deleteAgent);
+router.put('/verify/:id', agentController.verifyAgent);
 
 module.exports = router;

@@ -3,8 +3,8 @@ import React from 'react';
 const AgenciesTab = ({ agencies, onVerifyAgency, onDeleteAgency, loading }) => {
   const handleVerify = async (agencyId) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/agencies/${agencyId}/verify`, {
-        method: 'PATCH',
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/agencies/verify/${agencyId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },

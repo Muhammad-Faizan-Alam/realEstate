@@ -89,3 +89,19 @@ exports.findAgency = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// verify agency
+exports.verifyAgency = async (req, res) => {
+  try {
+    const agency = await Agency.findByIdAndUpdate(
+      req.params.id,
+      { verify: req.body.verify },
+      { new: true }
+    );
+    if (!agency) return res.status(404).json({ message: "Agency not found" });
+    res.json(agency);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};

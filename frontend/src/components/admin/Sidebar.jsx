@@ -6,8 +6,8 @@ const Sidebar = ({ activeTab, setActiveTab, isMobile, setIsMobileOpen }) => {
     { id: 'users', name: 'Users', icon: '👥' },
     { id: 'agents', name: 'Agents', icon: '🤝' },
     { id: 'agencies', name: 'Agencies', icon: '🏢' },
-    // { id: 'verified-properties', name: 'Verified Properties', icon: '✅' },
-    // { id: 'unverified-properties', name: 'Unverified Properties', icon: '❌' }
+    { id: 'verified-properties', name: 'Verified Properties', icon: '✅' },
+    { id: 'unverified-properties', name: 'Unverified Properties', icon: '❌' }
   ];
 
   return (

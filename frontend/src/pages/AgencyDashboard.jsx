@@ -35,12 +35,12 @@ const AgencyDashboard = () => {
   const [isAgency, setIsAgency] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
-  
+
   // Loading states
   const [loadingUser, setLoadingUser] = useState(true);
   const [loadingAgency, setLoadingAgency] = useState(true);
   const [loadingProperties, setLoadingProperties] = useState(false);
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [propertiesPerPage] = useState(6);
@@ -188,9 +188,12 @@ const AgencyDashboard = () => {
   // Pagination logic
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
-  const currentProperties = properties.slice(indexOfFirstProperty, indexOfLastProperty);
-  const totalPages = Math.ceil(properties.length / propertiesPerPage);
-
+  let currentProperties = [];
+  let totalPages = 0;
+  if (properties.length > 0) {
+    currentProperties = properties.slice(indexOfFirstProperty, indexOfLastProperty);
+    totalPages = Math.ceil(properties.length / propertiesPerPage);
+  }
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -498,10 +501,10 @@ const AgencyDashboard = () => {
 
     const pageNumbers = [];
     const maxVisiblePages = 5;
-    
+
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    
+
     if (endPage - startPage + 1 < maxVisiblePages) {
       startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
@@ -522,7 +525,7 @@ const AgencyDashboard = () => {
           <ChevronLeft className="h-4 w-4" />
           Previous
         </Button>
-        
+
         {startPage > 1 && (
           <>
             <Button
@@ -1188,7 +1191,7 @@ const AgencyDashboard = () => {
                     <AgencyPropertyCard key={property._id} property={property} />
                   ))}
                 </div>
-                
+
                 {/* Pagination */}
                 <Pagination />
               </>

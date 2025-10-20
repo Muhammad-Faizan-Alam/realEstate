@@ -1,10 +1,12 @@
 import React from 'react';
 
 const AgentsTab = ({ agents, onVerifyAgent, onDeleteAgent, loading }) => {
+
+  console.log('AgentsTab agents:', agents);
   const handleVerify = async (agentId) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/agents/${agentId}/verify`, {
-        method: 'PATCH',
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/agents/verify/${agentId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },

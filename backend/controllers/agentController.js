@@ -81,3 +81,19 @@ exports.deleteAgent = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// verify agent
+exports.verifyAgent = async (req, res) => {
+  try {
+    const agent = await Agent.findByIdAndUpdate(
+      req.params.id,
+      { verify: true },
+      { new: true }
+    );
+    if (!agent) return res.status(404).json({ message: "Agent not found" });
+    res.json(agent);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
