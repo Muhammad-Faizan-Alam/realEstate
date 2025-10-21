@@ -41,7 +41,7 @@ const AdminDashboard = () => {
         setAgents(agentsData);
         setAgencies(agenciesData);
         setProperties(propertiesData);
-
+        console.log("Fetched properties data:", propertiesData);
         // Calculate stats
         calculateStats(usersData, agentsData, agenciesData, propertiesData);
       } catch (error) {

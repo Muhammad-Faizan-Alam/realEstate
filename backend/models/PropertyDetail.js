@@ -30,7 +30,8 @@ const PropertyDetailSchema = new mongoose.Schema({
     furnishing: String,
     truCheck: Boolean,
     avgRent: String,
-    addedOn: String
+    addedOn: String,
+    currentStatus: { type: String, default: "Available" } // Available, Sold, Rented
   },
 
   validatedInfo: {
@@ -55,14 +56,14 @@ const PropertyDetailSchema = new mongoose.Schema({
 
   amenities: [String],
 
-  similarTransactions: [
-    {
-      date: String,
-      location: String,
-      area: String,
-      price: String
-    }
-  ],
+  // similarTransactions: [
+  //   {
+  //     date: String,
+  //     location: String,
+  //     area: String,
+  //     price: String
+  //   }
+  // ],
 
   regulatoryInfo: {
     permitNo: String,

@@ -11,7 +11,7 @@ import Properties from "./pages/Properties";
 import PropertyDetail from "./pages/PropertyDetail";
 import Villas from "./pages/Villas";
 import OtherProperties from "./pages/OtherProperties";
-import AgencyDashboard from "./pages/AgencyDashboard";
+import AgencyDashboard from "./components/agency/AgencyDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import AgentDashboard from "./pages/AgentDashboard";
 import Auth from './pages/Auth'
