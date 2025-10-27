@@ -62,6 +62,14 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
     return purpose === "Sale" ? "bg-orange-100 text-orange-800" : "bg-purple-100 text-purple-800";
   };
 
+  const slugify = (text: string) => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
+  };
+
   const formatPrice = (price: string) => {
     const numPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0;
     if (numPrice >= 1000000) {
@@ -77,7 +85,12 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
       <>
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {properties.map((property) => (
-            <Card key={property._id} className="overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <Card key={property._id}
+              className="overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+              onClick={() => {
+                const slug = slugify(property.title);
+                window.location.href = `/apartments-in-dubai/${slug}/${property._id}`;
+              }}>
               <div className="relative">
                 <img
                   src={property.images?.[0] || "/placeholder-property.jpg"}
@@ -91,29 +104,6 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
                   {property.isOffPlan && (
                     <Badge variant="secondary" className="text-xs">Off Plan</Badge>
                   )}
-                </div>
-                <div className="absolute top-2 right-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 bg-white/80 hover:bg-white">
-                        <MoreVertical className="h-3 w-3" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-40">
-                      <DropdownMenuItem onClick={() => setEditingProperty(property)}>
-                        <Edit className="h-4 w-4 mr-2" />
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => handleDelete(property._id)}
-                        disabled={deleteLoading === property._id}
-                        className="text-red-600"
-                      >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        {deleteLoading === property._id ? "Deleting..." : "Delete"}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
                 </div>
               </div>
 
@@ -212,7 +202,12 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
     <>
       <div className="space-y-3 sm:space-y-4">
         {properties.map((property) => (
-          <Card key={property._id} className="hover:shadow-md transition-shadow duration-200">
+          <Card key={property._id}
+            className="hover:shadow-md transition-shadow duration-200 cursor-pointer"
+            onClick={() => {
+              const slug = slugify(property.title);
+              window.location.href = `/apartments-in-dubai/${slug}/${property._id}`;
+            }}>
             <CardContent className="p-3 sm:p-4">
               <div className="flex gap-3 sm:gap-4">
                 <img
@@ -220,7 +215,7 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
                   alt={property.title}
                   className="w-20 h-16 sm:w-32 sm:h-24 object-cover rounded-lg flex-shrink-0"
                 />
-                
+
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                     <div className="flex-1 min-w-0">
@@ -230,32 +225,11 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
                         <span className="line-clamp-1">{property.location}</span>
                       </p>
                     </div>
-                    
+
                     <div className="flex items-center gap-2">
                       <span className="text-lg sm:text-xl font-bold text-blue-600 whitespace-nowrap">
                         {formatPrice(property.price)}
                       </span>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                            <MoreVertical className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-40">
-                          <DropdownMenuItem onClick={() => setEditingProperty(property)}>
-                            <Edit className="h-4 w-4 mr-2" />
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem 
-                            onClick={() => handleDelete(property._id)}
-                            disabled={deleteLoading === property._id}
-                            className="text-red-600"
-                          >
-                            <Trash2 className="h-4 w-4 mr-2" />
-                            {deleteLoading === property._id ? "Deleting..." : "Delete"}
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                     </div>
                   </div>
 
