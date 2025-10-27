@@ -1,4 +1,3 @@
-// components/agency/AddPropertyDialog.tsx
 import React, { useState } from "react";
 import {
   Dialog,
@@ -30,7 +29,7 @@ const furnishingTypes = ["Furnished", "Unfurnished", "Partially Furnished"];
 interface AddPropertyDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  agency: any;
+  agent: any;
   onPropertyAdded: () => void;
   children: React.ReactNode;
 }
@@ -38,7 +37,7 @@ interface AddPropertyDialogProps {
 const AddPropertyDialog: React.FC<AddPropertyDialogProps> = ({
   open,
   onOpenChange,
-  agency,
+  agent,
   onPropertyAdded,
   children
 }) => {
@@ -99,7 +98,7 @@ const AddPropertyDialog: React.FC<AddPropertyDialogProps> = ({
     regulatoryInfo: {
       permitNo: "",
       zone: "",
-      agency: agency?._id || "",
+      agent: agent?._id || "",
       ded: "",
       rera: "",
       brn: ""
@@ -239,7 +238,7 @@ const AddPropertyDialog: React.FC<AddPropertyDialogProps> = ({
         regulatoryInfo: {
           permitNo: formData.regulatoryInfo.permitNo,
           zone: formData.regulatoryInfo.zone,
-          agency: formData.regulatoryInfo.agency,
+          agent: formData.regulatoryInfo.agent,
           ded: formData.regulatoryInfo.ded,
           rera: formData.regulatoryInfo.rera,
           brn: formData.regulatoryInfo.brn
@@ -328,7 +327,7 @@ const AddPropertyDialog: React.FC<AddPropertyDialogProps> = ({
       regulatoryInfo: {
         permitNo: "",
         zone: "",
-        agency: agency?._id || "",
+        agent: agent?._id || "",
         ded: "",
         rera: "",
         brn: ""

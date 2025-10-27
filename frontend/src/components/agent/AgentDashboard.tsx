@@ -1,17 +1,16 @@
-// components/agency/AgencyDashboard.tsx (Updated for responsiveness)
 "use client";
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AgencySidebar from "./AgencySidebar";
+import AgentSidebar from "./AgentSidebar";
 import PropertiesGrid from "./PropertiesGrid";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const AgencyDashboard = () => {
+const AgentDashboard = () => {
   const [user, setUser] = useState(null);
-  const [agency, setAgency] = useState(null);
+  const [agent, setAgent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("apartments");
   const [activeState, setActiveState] = useState("all");
@@ -27,13 +26,14 @@ const AgencyDashboard = () => {
         const data = await res.json();
         if (data?._id) {
           setUser(data);
-          // Fetch agency data
-          const agencyRes = await fetch(`${import.meta.env.VITE_API_URL}/agencies/find/${data._id}`);
-          if (agencyRes.ok) {
-            const agencyData = await agencyRes.json();
-            setAgency(agencyData);
+          // Fetch agent data
+          const agentRes = await fetch(`${import.meta.env.VITE_API_URL}/agents/find/${data._id}`);
+          if (agentRes.ok) {
+            const agentData = await agentRes.json();
+            setAgent(agentData);
+            console.log("Agent Data:", agentData);
           } else {
-            window.location.href = "/agency/register";
+            window.location.href = "/agent/register";
           }
         }
       } catch (error) {
@@ -68,7 +68,7 @@ const AgencyDashboard = () => {
     );
   }
 
-  if (user && user.role !== "agency") {
+  if (user && user.role !== "agent") {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -99,14 +99,14 @@ const AgencyDashboard = () => {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            <AgencySidebar 
+            <AgentSidebar 
               activeSection={activeSection}
               setActiveSection={setActiveSection}
               activeState={activeState}
               setActiveState={setActiveState}
               activeStatus={activeStatus}
               setActiveStatus={setActiveStatus}
-              agency={agency}
+              agent={agent}
             />
           </SheetContent>
         </Sheet>
@@ -115,14 +115,14 @@ const AgencyDashboard = () => {
       <div className="flex">
         {/* Desktop Sidebar */}
         <div className="hidden lg:block lg:w-64 xl:w-72 flex-shrink-0">
-          <AgencySidebar 
+          <AgentSidebar 
             activeSection={activeSection}
             setActiveSection={setActiveSection}
             activeState={activeState}
             setActiveState={setActiveState}
             activeStatus={activeStatus}
             setActiveStatus={setActiveStatus}
-            agency={agency}
+            agent={agent}
           />
         </div>
 
@@ -132,7 +132,7 @@ const AgencyDashboard = () => {
             activeSection={activeSection}
             activeState={activeState}
             activeStatus={activeStatus}
-            agency={agency}
+            agent={agent}
           />
         </div>
       </div>
@@ -142,4 +142,4 @@ const AgencyDashboard = () => {
   );
 };
 
-export default AgencyDashboard;
+export default AgentDashboard;

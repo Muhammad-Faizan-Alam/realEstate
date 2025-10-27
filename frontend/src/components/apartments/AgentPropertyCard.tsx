@@ -14,7 +14,7 @@ const slugify = (text: string) => {
     .replace(/[^\w-]+/g, "");
 };
 
-const AgencyPropertyCard = ({ property }) => {
+const AgentPropertyCard = ({ property }) => {
 
   const sendRequest = async () => {
     // try {
@@ -37,7 +37,7 @@ const AgencyPropertyCard = ({ property }) => {
       <div className="relative">
         <Carousel className="w-full">
           <CarouselContent>
-            {property.images.map((image: string, index: number) => (
+            {/* {property.images.map((image: string, index: number) => (
               <CarouselItem key={index}>
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -48,7 +48,7 @@ const AgencyPropertyCard = ({ property }) => {
                   />
                 </div>
               </CarouselItem>
-            ))}
+            ))} */}
           </CarouselContent>
           <CarouselPrevious className="left-2" />
           <CarouselNext className="right-2" />
@@ -67,7 +67,7 @@ const AgencyPropertyCard = ({ property }) => {
           </Button>
         </div> */}
       </div>
-      <CardContent
+      {/* <CardContent
         className="p-4 pb-0 cursor-pointer"
         onClick={() => {
           const slug = slugify(property.title);
@@ -98,7 +98,7 @@ const AgencyPropertyCard = ({ property }) => {
             </div>
           </div>
         </div>
-      </CardContent>
+      </CardContent> */}
       <div className="flex gap-2 m-4">
             {/* {
               property.propertyInfo.truCheck ? (
@@ -122,4 +122,4 @@ const AgencyPropertyCard = ({ property }) => {
   );
 };
 
-export default AgencyPropertyCard;
+export default AgentPropertyCard;

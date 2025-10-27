@@ -13,7 +13,7 @@ import Villas from "./pages/Villas";
 import OtherProperties from "./pages/OtherProperties";
 import AgencyDashboard from "./components/agency/AgencyDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
-import AgentDashboard from "./pages/AgentDashboard";
+import AgentDashboard from "./components/agent/AgentDashboard";
 import Auth from './pages/Auth'
 import FindMyAgent from './pages/FindMyAgent'
 import NotFound from "./pages/NotFound";

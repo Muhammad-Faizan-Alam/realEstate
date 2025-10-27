@@ -1,4 +1,3 @@
-// components/agency/PropertiesGrid.tsx (Updated for responsiveness)
 import React, { useState, useEffect } from "react";
 import { Plus, Filter, Grid, List, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,14 +10,14 @@ interface PropertiesGridProps {
   activeSection: string;
   activeState: string;
   activeStatus: string;
-  agency: any;
+  agent: any;
 }
 
 const PropertiesGrid: React.FC<PropertiesGridProps> = ({
   activeSection,
   activeState,
   activeStatus,
-  agency
+  agent
 }) => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,10 +44,10 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
 
   useEffect(() => {
     fetchProperties();
-  }, [activeSection, activeState, activeStatus, agency, filters, pagination.currentPage]);
+  }, [activeSection, activeState, activeStatus, agent, filters, pagination.currentPage]);
 
   const fetchProperties = async () => {
-    if (!agency?._id) return;
+    if (!agent?._id) return;
     
     try {
       setLoading(true);
@@ -61,7 +60,7 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
       };
 
       const queryParams = new URLSearchParams({
-        agency: agency._id,
+        agent: agent._id,
         propertyType: activeSection === "all" ? "" : (propertyTypeMap[activeSection] || activeSection),
         state: activeState === "all" ? "" : activeState,
         status: activeStatus === "all" ? "" : activeStatus,
@@ -76,14 +75,15 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
       });
 
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/agencies/${agency._id}/properties?${queryParams}`
+        `${import.meta.env.VITE_API_URL}/properties`
       );
       
       const data = await res.json();
+      console.log("Fetched Properties Data:", data);
       
-      if (data.properties) {
-        setProperties(data.properties);
-        setPagination(data.pagination);
+      if (data) {
+        setProperties(data);
+        // setPagination(data.pagination);
       }
     } catch (error) {
       console.error("Error fetching properties:", error);
@@ -232,10 +232,10 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
             </Button>
           </div>
 
-          <AddPropertyDialog
+          {/* <AddPropertyDialog
             open={addPropertyOpen}
             onOpenChange={setAddPropertyOpen}
-            agency={agency}
+            agent={agent}
             onPropertyAdded={fetchProperties}
           >
             <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base">
@@ -243,7 +243,7 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
               <span className="hidden sm:inline">Add Property</span>
               <span className="sm:hidden">Add</span>
             </Button>
-          </AddPropertyDialog>
+          </AddPropertyDialog> */}
         </div>
       </div>
 

@@ -39,7 +39,6 @@ const AgentDashboard = () => {
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/agents/find/${user._id}`);
                 if (res.ok) setIsAgent(true);
                 const data = await res.json();
-                console.log("-------------", data)
             } catch (error) {
                 console.error("Error fetching agent:", error);
             }

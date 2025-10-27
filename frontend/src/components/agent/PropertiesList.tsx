@@ -1,4 +1,3 @@
-// components/agency/PropertiesList.tsx (Updated for responsiveness)
 import React, { useState } from "react";
 import { Edit, Trash2, Eye, MoreVertical, CheckCircle, XCircle, MapPin, Bed, Bath, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,29 +24,29 @@ const PropertiesList: React.FC<PropertiesListProps> = ({
 }) => {
   const [editingProperty, setEditingProperty] = useState<any>(null);
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
-
+  console.log("PropertiesList properties:", properties);
   const handleDelete = async (propertyId: string) => {
-    if (!confirm("Are you sure you want to delete this property?")) return;
+    // if (!confirm("Are you sure you want to delete this property?")) return;
 
-    setDeleteLoading(propertyId);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/${propertyId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+    // setDeleteLoading(propertyId);
+    // try {
+    //   const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/${propertyId}`, {
+    //     method: "DELETE",
+    //     credentials: "include",
+    //   });
 
-      if (response.ok) {
-        alert("Property deleted successfully!");
-        onPropertyUpdated();
-      } else {
-        alert("Failed to delete property.");
-      }
-    } catch (error) {
-      console.error("Error deleting property:", error);
-      alert("Error deleting property. Please try again.");
-    } finally {
-      setDeleteLoading(null);
-    }
+    //   if (response.ok) {
+    //     alert("Property deleted successfully!");
+    //     onPropertyUpdated();
+    //   } else {
+    //     alert("Failed to delete property.");
+    //   }
+    // } catch (error) {
+    //   console.error("Error deleting property:", error);
+    //   alert("Error deleting property. Please try again.");
+    // } finally {
+    //   setDeleteLoading(null);
+    // }
   };
 
   const getStatusColor = (status: string) => {

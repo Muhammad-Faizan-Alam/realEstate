@@ -1,4 +1,3 @@
-// components/agency/AgencySidebar.tsx (Updated for responsiveness)
 import React, { useState, useEffect } from "react";
 import { Building, Home, MapPin, LucideHome, Layers, Filter, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,24 +7,24 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 const states = ["All", "Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah", "Umm Al Quwain"];
 const statusTypes = ["all", "verified", "unverified"];
 
-interface AgencySidebarProps {
+interface AgentSidebarProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
   activeState: string;
   setActiveState: (state: string) => void;
   activeStatus: string;
   setActiveStatus: (status: string) => void;
-  agency: any;
+  agent: any;
 }
 
-const AgencySidebar: React.FC<AgencySidebarProps> = ({
+const AgentSidebar: React.FC<AgentSidebarProps> = ({
   activeSection,
   setActiveSection,
   activeState,
   setActiveState,
   activeStatus,
   setActiveStatus,
-  agency
+  agent
 }) => {
   const [counts, setCounts] = useState({
     types: {
@@ -57,14 +56,14 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
 
   useEffect(() => {
     fetchCounts();
-  }, [agency]);
+  }, [agent]);
 
   const fetchCounts = async () => {
-    if (!agency?._id) return;
+    if (!agent?._id) return;
     
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/agencies/${agency._id}/counts`
+        `${import.meta.env.VITE_API_URL}/agencies/${agent._id}/counts`
       );
       const data = await res.json();
       setCounts(data);
@@ -107,19 +106,29 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
   return (
     <div className="w-full h-full bg-white border-r border-gray-200 overflow-y-auto">
       <div className="p-4 lg:p-6">
-        {/* Agency Info */}
+        {/* Agent Info */}
         <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-          {agency?.logo && (
+          {agent?.image && (
             <img
-              src={agency.logo}
-              alt={agency.name}
+              src={agent.image}
+              alt={agent.user.name[0]}
               className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
             />
           )}
           <div className="min-w-0 flex-1">
-            <h3 className="font-semibold text-gray-900 text-sm truncate">{agency?.name}</h3>
-            <Badge variant={agency?.verify ? "default" : "secondary"} className="text-xs mt-1">
-              {agency?.verify ? "Verified" : "Unverified"}
+            <h3 className="font-semibold text-gray-900 text-sm truncate">{agent?.user.name}</h3>
+            <Badge variant={agent?.verify ? "default" : "secondary"} className="text-xs mt-1">
+              {agent?.verify ? "Verified" : "Unverified"}
+            </Badge>
+          </div>
+        </div>
+
+        {/* Agent Info */}
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b">
+          <div className="min-w-0 flex-1">
+            <h3 className="font-semibold text-gray-900 text-sm truncate">Your Selected Cities</h3>
+            <Badge variant="secondary" className="text-xs mt-1">
+              {agent?.city.join(", ")}
             </Badge>
           </div>
         </div>
@@ -255,4 +264,4 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
   );
 };
 
-export default AgencySidebar;
+export default AgentSidebar;

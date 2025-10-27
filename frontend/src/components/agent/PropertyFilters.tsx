@@ -1,4 +1,3 @@
-// components/agency/PropertyFilters.tsx (Updated for responsiveness)
 import React from "react";
 import { Filter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
