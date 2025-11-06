@@ -12,6 +12,8 @@ import PropertyDetail from "./pages/PropertyDetail";
 import Villas from "./pages/Villas";
 import OtherProperties from "./pages/OtherProperties";
 import AgencyDashboard from "./components/agency/AgencyDashboard";
+import AgencyReg from './pages/AgencyReg';
+import AgentReg from './pages/AgentReg';
 import AdminDashboard from "./pages/AdminDashboard";
 import AgentDashboard from "./components/agent/AgentDashboard";
 import Auth from './pages/Auth'
@@ -80,6 +82,8 @@ const App = () => (
 
           {/* Dashboards */}
           <Route path="/agency/dashboard" element={<AgencyDashboard />} />
+          <Route path="/agency/register" element={<AgencyReg />} />
+          <Route path="/agent/register" element={<AgentReg />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/agent/dashboard" element={<AgentDashboard />} />
 

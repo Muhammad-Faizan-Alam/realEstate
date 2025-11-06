@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Mail } from "lucide-react";
+import AgentCard from '@/components/AgentCard'
 
 const FindMyAgent = () => {
   const [agents, setAgents] = useState([]);
@@ -13,6 +13,7 @@ const FindMyAgent = () => {
         if (res.ok) {
           const data = await res.json();
           setAgents(data);
+          console.log("0000000", agents)
         }
       } catch (error) {
         console.log(error);
@@ -33,49 +34,52 @@ const FindMyAgent = () => {
         {agents.length === 0 ? (
           <p className="text-center text-gray-500">Loading agents...</p>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div>
             {agents.map((agent) => (
-              <div
-                key={agent._id}
-                className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-              >
-                {/* Agent Image */}
-                <div className="h-56 w-full overflow-hidden">
-                  <img
-                    src={agent.image}
-                    alt={agent.user?.name || "Agent"}
-                    className="h-full w-full object-cover transform hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
+              // <div
+              //   key={agent._id}
+              //   className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              // >
+              //   {/* Agent Image */}
+              //   <div className="h-56 w-full overflow-hidden">
+              //     <img
+              //       src={agent.image}
+              //       alt={agent.user?.name || "Agent"}
+              //       className="h-full w-full object-cover transform hover:scale-110 transition-transform duration-500"
+              //     />
+              //   </div>
 
-                {/* Agent Info */}
-                <div className="p-6 flex flex-col items-center text-center">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    {agent.user?.name}
-                  </h2>
-                  <p className="text-gray-500 mb-3">Real Estate Agent</p>
+              //   {/* Agent Info */}
+              //   <div className="p-6 flex flex-col items-center text-center">
+              //     <h2 className="text-xl font-semibold text-gray-900">
+              //       {agent.user?.name}
+              //     </h2>
+              //     <p className="text-gray-500 mb-3">Real Estate Agent</p>
 
-                  {/* City Tags */}
-                  <div className="flex flex-wrap justify-center gap-2 mb-4">
-                    {agent.city?.map((c, i) => (
-                      <span
-                        key={i}
-                        className="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full"
-                      >
-                        {c}
-                      </span>
-                    ))}
-                  </div>
+              //     {/* City Tags */}
+              //     <div className="flex flex-wrap justify-center gap-2 mb-4">
+              //       {agent.city?.map((c, i) => (
+              //         <span
+              //           key={i}
+              //           className="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full"
+              //         >
+              //           {c}
+              //         </span>
+              //       ))}
+              //     </div>
 
-                  {/* Contact Button */}
-                  <a
-                    href={`mailto:${agent.user?.email}`}
-                    className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition-colors"
-                  >
-                    <Mail size={18} />
-                    Contact
-                  </a>
-                </div>
+              //     {/* Contact Button */}
+              //     <a
+              //       href={`mailto:${agent.user?.email}`}
+              //       className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition-colors"
+              //     >
+              //       <Mail size={18} />
+              //       Contact
+              //     </a>
+              //   </div>
+              // </div>
+              <div key={agent._id} className="mb-2">
+                <AgentCard agent={agent} />
               </div>
             ))}
           </div>

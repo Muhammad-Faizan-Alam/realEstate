@@ -7,10 +7,19 @@ const agentSchema = new mongoose.Schema(
     city: [{ type: String, required: true }],
     verify: { type: Boolean, default: false },
     // role: { type: String, required: true },
-    connections: [{
-    property: { type: mongoose.Schema.Types.ObjectId, ref: 'PropertyDetail' },
-    req: { type: Boolean, default: false }
-  }]
+    // connections: [{
+    //   property: { type: mongoose.Schema.Types.ObjectId, ref: 'PropertyDetail' },
+    //   req: { type: Boolean, default: false }
+    // }]
+    stories: {
+      type: [
+        {
+          url: { type: String, required: true },
+          date: { type: Date, default: Date.now }
+        }
+      ],
+      default: []
+    }
   },
   { timestamps: true }
 );
