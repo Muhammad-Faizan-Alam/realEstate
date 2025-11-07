@@ -199,13 +199,14 @@ const StoriesGallery = ({ agent }) => {
 
     const API_URL = `${import.meta.env.VITE_API_URL}/agents`;
 
-    // Filter stories from last 7 days
+    // Filter stories from the last 24 hours
     const currentStories = stories.filter(story => {
         const storyDate = new Date(story.date);
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        return storyDate >= oneWeekAgo;
+        const oneDayAgo = new Date();
+        oneDayAgo.setHours(oneDayAgo.getHours() - 24);
+        return storyDate >= oneDayAgo;
     });
+
 
     // Fetch stories
     const fetchStories = async () => {

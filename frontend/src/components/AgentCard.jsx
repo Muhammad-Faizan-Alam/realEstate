@@ -1,8 +1,8 @@
 import React from "react";
-import { Mail } from "lucide-react";
+import { Image, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-const AgentCard = ({ agent }) => {
+const AgentCard = ({ agent, openLightbox }) => {
     return (
         <div
             className="
@@ -47,7 +47,7 @@ const AgentCard = ({ agent }) => {
             </div>
 
             {/* Right: Contact Button */}
-            <div className="w-full sm:w-auto flex justify-center sm:justify-end">
+            <div className="w-full sm:w-auto flex flex-col justify-center sm:justify-end">
                 <a
                     href={`mailto:${agent.user?.email}`}
                     className="
@@ -61,6 +61,22 @@ const AgentCard = ({ agent }) => {
                     <Mail size={18} />
                     <span>Contact</span>
                 </a>
+                {/* Show agent's recent stories count */}
+                {agent.stories && agent.stories.some(story => {
+                    const storyDate = new Date(story.date);
+                    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+                    return storyDate >= twentyFourHoursAgo;
+                }) && (
+                        <div className="mt-2 flex items-center justify-center border border-blue-500 rounded-full p-2">
+                            <div
+                                className="flex items-center text-xs text-blue-600 cursor-pointer hover:text-blue-700"
+                                onClick={() => openLightbox(agent._id)}
+                            >
+                                <Image className="w-3 h-3 mr-1" />
+                                Recent Stories
+                            </div>
+                        </div>
+                    )}
             </div>
         </div>
     );

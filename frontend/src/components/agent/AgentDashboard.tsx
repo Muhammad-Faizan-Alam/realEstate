@@ -17,10 +17,7 @@ const AgentDashboard = () => {
   const [activeState, setActiveState] = useState("all");
   const [activeStatus, setActiveStatus] = useState("all");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [storiesTab, setStoriesTab] = useState(true);
-  useEffect(() => {
-    console.log("-----------------------------", storiesTab);
-  }, [storiesTab])
+  const [storiesTab, setStoriesTab] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
