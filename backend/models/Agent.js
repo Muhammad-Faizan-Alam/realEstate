@@ -14,7 +14,9 @@ const agentSchema = new mongoose.Schema(
     stories: {
       type: [
         {
+          isVideo: { type: Boolean, default: false },
           url: { type: String, required: true },
+          insta_url: { type: String },
           date: { type: Date, default: Date.now }
         }
       ],

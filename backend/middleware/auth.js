@@ -5,7 +5,7 @@ const authMiddleware = async (req, res, next) => {
   try {
     // 1. Check cookie first
     let token = req.cookies?.token;
-    // console.log('Auth middleware - token from cookie:', token);
+    console.log('Auth middleware - token from cookie:', token);
 
     // 2. If not in cookie, check Authorization header
     if (!token && req.header("Authorization")) {

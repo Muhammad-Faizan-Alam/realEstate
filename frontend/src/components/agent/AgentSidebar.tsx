@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Building, Home, MapPin, LucideHome, Layers, Filter, ChevronDown, ChevronRight } from "lucide-react";
+import { Building, Home, MapPin, LucideHome, Layers, Filter, ChevronDown, ChevronRight, Building2, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -15,6 +15,8 @@ interface AgentSidebarProps {
   activeStatus: string;
   setActiveStatus: (status: string) => void;
   agent: any;
+  storiesTab: boolean;
+  setStoriesTab: (storiesTab: boolean) => void;
 }
 
 const AgentSidebar: React.FC<AgentSidebarProps> = ({
@@ -24,7 +26,9 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
   setActiveState,
   activeStatus,
   setActiveStatus,
-  agent
+  agent,
+  storiesTab,
+  setStoriesTab
 }) => {
   const [counts, setCounts] = useState({
     types: {
@@ -60,7 +64,7 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
 
   const fetchCounts = async () => {
     if (!agent?._id) return;
-    
+
     try {
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/agencies/${agent._id}/counts`
@@ -133,12 +137,26 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
           </div>
         </div>
 
+        {/* Agent Info */}
+        <div className={`flex items-center gap-3 mb-6 p-2 rounded-md cursor-pointer
+          ${storiesTab ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'text-gray-700 hover:bg-gray-50'}`}
+          onClick={() => {setStoriesTab(!storiesTab)}}>
+          <div className="min-w-0 flex flex-wrap items-center gap-2 cursor-pointer">
+              <Video className="w-4 h-4" />
+            <h3 className="font-semibold text-sm truncate">
+              Stories</h3>
+          </div>
+        </div>
+
         {/* Property Type Sections */}
         <Collapsible open={openSections.types} onOpenChange={() => toggleSection('types')} className="mb-6">
           <CollapsibleTrigger className="flex items-center justify-between w-full mb-3">
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Property Types
-            </h4>
+            <div className="flex flex-wrap gap-2">
+              <Building2 className="h-3 w-3 flex-shrink-0" />
+              <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Property Types
+              </h4>
+            </div>
             {openSections.types ? (
               <ChevronDown className="h-3 w-3 text-gray-500" />
             ) : (
@@ -153,11 +171,10 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      activeSection === section.id
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeSection === section.id
                         ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : "text-gray-700 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <Icon className="h-4 w-4 flex-shrink-0" />
                     <span className="flex-1 text-left truncate">{section.label}</span>
@@ -193,16 +210,15 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
               {states.map((state) => {
                 const stateKey = state.toLowerCase();
                 const count = stateCounts[stateKey as keyof typeof stateCounts] || 0;
-                
+
                 return (
                   <button
                     key={state}
                     onClick={() => setActiveState(stateKey)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
-                      activeState === stateKey
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeState === stateKey
                         ? "bg-gray-100 text-gray-900 font-medium"
                         : "text-gray-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <span className="truncate">{state}</span>
                     {count > 0 && (
@@ -236,16 +252,15 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
             <div className="space-y-1">
               {statusTypes.map((status) => {
                 const count = statusCounts[status as keyof typeof statusCounts] || 0;
-                
+
                 return (
                   <button
                     key={status}
                     onClick={() => setActiveStatus(status)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
-                      activeStatus === status
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeStatus === status
                         ? "bg-gray-100 text-gray-900 font-medium"
                         : "text-gray-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <span className="truncate capitalize">{status}</span>
                     {count > 0 && (

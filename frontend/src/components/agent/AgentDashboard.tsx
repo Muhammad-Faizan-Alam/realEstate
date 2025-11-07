@@ -7,6 +7,7 @@ import PropertiesGrid from "./PropertiesGrid";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import StoriesGallery from './StoriesGallery'
 
 const AgentDashboard = () => {
   const [user, setUser] = useState(null);
@@ -16,6 +17,10 @@ const AgentDashboard = () => {
   const [activeState, setActiveState] = useState("all");
   const [activeStatus, setActiveStatus] = useState("all");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [storiesTab, setStoriesTab] = useState(true);
+  useEffect(() => {
+    console.log("-----------------------------", storiesTab);
+  }, [storiesTab])
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -27,7 +32,9 @@ const AgentDashboard = () => {
         if (data?._id) {
           setUser(data);
           // Fetch agent data
-          const agentRes = await fetch(`${import.meta.env.VITE_API_URL}/agents/find/${data._id}`);
+          const agentRes = await fetch(`${import.meta.env.VITE_API_URL}/agents/find/${data._id}`, {
+          credentials: "include"
+        });
           if (agentRes.ok) {
             const agentData = await agentRes.json();
             setAgent(agentData);
@@ -83,23 +90,41 @@ const AgentDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
-      {/* Mobile Sidebar Trigger */}
-      <div className="lg:hidden fixed top-20 left-4 z-40">
-        <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="sm" className="h-10 w-10 p-0 bg-white shadow-lg">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-80 p-0 overflow-y-auto">
-            <div className="p-4 border-b flex items-center justify-between">
-              <h2 className="font-semibold">Navigation</h2>
-              <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(false)}>
-                <X className="h-4 w-4" />
+      <div className={`${storiesTab ? 'hidden' : 'block'}`}>
+        {/* Mobile Sidebar Trigger */}
+        <div className="lg:hidden fixed top-20 left-4 z-40">
+          <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="sm" className="h-10 w-10 p-0 bg-white shadow-lg">
+                <Menu className="h-5 w-5" />
               </Button>
-            </div>
-            <AgentSidebar 
+            </SheetTrigger>
+            <SheetContent side="left" className="w-80 p-0 overflow-y-auto">
+              <div className="p-4 border-b flex items-center justify-between">
+                <h2 className="font-semibold">Navigation</h2>
+                <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(false)}>
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              <AgentSidebar
+                activeSection={activeSection}
+                setActiveSection={setActiveSection}
+                activeState={activeState}
+                setActiveState={setActiveState}
+                activeStatus={activeStatus}
+                setActiveStatus={setActiveStatus}
+                agent={agent}
+                storiesTab={storiesTab}
+                setStoriesTab={setStoriesTab}
+              />
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        <div className="flex">
+          {/* Desktop Sidebar */}
+          <div className="hidden lg:block lg:w-64 xl:w-72 flex-shrink-0">
+            <AgentSidebar
               activeSection={activeSection}
               setActiveSection={setActiveSection}
               activeState={activeState}
@@ -107,36 +132,28 @@ const AgentDashboard = () => {
               activeStatus={activeStatus}
               setActiveStatus={setActiveStatus}
               agent={agent}
+              storiesTab={storiesTab}
+              setStoriesTab={setStoriesTab}
             />
-          </SheetContent>
-        </Sheet>
-      </div>
+          </div>
 
-      <div className="flex">
-        {/* Desktop Sidebar */}
-        <div className="hidden lg:block lg:w-64 xl:w-72 flex-shrink-0">
-          <AgentSidebar 
-            activeSection={activeSection}
-            setActiveSection={setActiveSection}
-            activeState={activeState}
-            setActiveState={setActiveState}
-            activeStatus={activeStatus}
-            setActiveStatus={setActiveStatus}
-            agent={agent}
-          />
-        </div>
-
-        {/* Main Content */}
-        <div className="flex-1 lg:ml-0">
-          <PropertiesGrid
-            activeSection={activeSection}
-            activeState={activeState}
-            activeStatus={activeStatus}
-            agent={agent}
-          />
+          {/* Main Content */}
+          <div className="flex-1 lg:ml-0">
+            <PropertiesGrid
+              activeSection={activeSection}
+              activeState={activeState}
+              activeStatus={activeStatus}
+              agent={agent}
+            />
+          </div>
         </div>
       </div>
-      
+
+      {storiesTab &&
+        <div className="min-h-screen">
+          <StoriesGallery agent={agent} />
+        </div>
+      }
       <Footer />
     </div>
   );
