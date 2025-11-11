@@ -5,13 +5,17 @@ const AgenciesTab = ({ agencies, onVerifyAgency, onDeleteAgency, loading }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/agencies/verify/${agencyId}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ verify: true }),
       });
+
       if (response.ok) {
         onVerifyAgency(agencyId);
+      } else {
+        console.error('Failed to verify agency:', response.statusText);
       }
     } catch (error) {
       console.error('Error verifying agency:', error);
@@ -23,6 +27,7 @@ const AgenciesTab = ({ agencies, onVerifyAgency, onDeleteAgency, loading }) => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/agencies/${agencyId}`, {
           method: 'DELETE',
+          credentials: 'include',
         });
         if (response.ok) {
           onDeleteAgency(agencyId);
@@ -42,8 +47,8 @@ const AgenciesTab = ({ agencies, onVerifyAgency, onDeleteAgency, loading }) => {
       <div className="px-4 lg:px-6 py-4 border-b border-gray-200">
         <h3 className="text-lg font-semibold">Agencies Management</h3>
         <p className="text-gray-600 text-sm">
-          Total Agencies: {agencies.length} • 
-          Verified: {agencies.filter(a => a.verify).length} • 
+          Total Agencies: {agencies.length} •
+          Verified: {agencies.filter(a => a.verify).length} •
           Pending: {agencies.filter(a => !a.verify).length}
         </p>
       </div>
@@ -109,11 +114,10 @@ const AgenciesTab = ({ agencies, onVerifyAgency, onDeleteAgency, loading }) => {
                   </div>
                 </td>
                 <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                    agency.verify
+                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${agency.verify
                       ? 'bg-green-100 text-green-800 border border-green-200'
                       : 'bg-yellow-100 text-yellow-800 border border-yellow-200'
-                  }`}>
+                    }`}>
                     {agency.verify ? 'Verified' : 'Pending Verification'}
                   </span>
                 </td>
@@ -144,7 +148,7 @@ const AgenciesTab = ({ agencies, onVerifyAgency, onDeleteAgency, loading }) => {
             ))}
           </tbody>
         </table>
-        
+
         {agencies.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">🏢</div>

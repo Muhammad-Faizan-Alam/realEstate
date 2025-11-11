@@ -41,7 +41,9 @@ const PropertiesGrid = ({ city }: PropertiesGridProps) => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/properties`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/properties`, {
+          credentials: 'include',
+        });
         const data = await res.json();
 
         // Agar tumhari API array return karti hai:

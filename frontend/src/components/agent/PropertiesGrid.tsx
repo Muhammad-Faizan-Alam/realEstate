@@ -48,10 +48,10 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
 
   const fetchProperties = async () => {
     if (!agent?._id) return;
-    
+
     try {
       setLoading(true);
-      
+
       const propertyTypeMap: { [key: string]: string } = {
         'apartments': 'Apartment',
         'villas': 'Villa',
@@ -75,12 +75,13 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
       });
 
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/properties`
-      );
-      
+        `${import.meta.env.VITE_API_URL}/properties`, {
+        credentials: "include"
+      });
+
       const data = await res.json();
       console.log("Fetched Properties Data:", data);
-      
+
       if (data) {
         setProperties(data);
         // setPagination(data.pagination);
@@ -199,7 +200,7 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({
             {pagination.totalPages > 1 && ` • Page ${pagination.currentPage} of ${pagination.totalPages}`}
           </p>
         </div>
-        
+
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           {/* Mobile Filter Toggle */}
           <Button

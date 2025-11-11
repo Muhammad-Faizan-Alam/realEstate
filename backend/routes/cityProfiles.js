@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const ctrl = require("../controllers/cityProfileController");
+const { authMiddleware } = require('../middleware/auth');
+
+// All routes are protected by auth middleware
+router.use(authMiddleware);
 
 // Public routes
 router.get("/", ctrl.listProfiles);

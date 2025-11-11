@@ -7,6 +7,7 @@ const AgentsTab = ({ agents, onVerifyAgent, onDeleteAgent, loading }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/agents/verify/${agentId}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -25,6 +26,7 @@ const AgentsTab = ({ agents, onVerifyAgent, onDeleteAgent, loading }) => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/agents/${agentId}`, {
           method: 'DELETE',
+          credentials: 'include',
         });
         if (response.ok) {
           onDeleteAgent(agentId);

@@ -12,8 +12,9 @@ const ProjectsCarousel = () => {
     const fetchProjects = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/project-details`
-        );
+          `${import.meta.env.VITE_API_URL}/project-details`, {
+          credentials: "include"
+        });
         const data = await response.json();
         setProjects(data);
         console.log("Fetched projects from projectdetail:", data);

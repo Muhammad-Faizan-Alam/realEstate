@@ -26,8 +26,9 @@ const OtherProperties = () => {
         if (priceRange) queryParams.append("priceRange", priceRange);
 
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/properties?${queryParams.toString()}`
-        );
+          `${import.meta.env.VITE_API_URL}/properties?${queryParams.toString()}`, {
+          credentials: 'include',
+        });
         const data = await res.json();
 
         setFilteredProperties(
@@ -37,7 +38,7 @@ const OtherProperties = () => {
               p.propertyType !== "Villa" &&
               (!state ||
                 p.state?.toLowerCase().replace(/\s+/g, "-") ===
-                  state.toLowerCase())
+                state.toLowerCase())
           )
         );
       } catch (err) {
@@ -62,8 +63,8 @@ const OtherProperties = () => {
             {filteredProperties.length > 0
               ? filteredProperties[0].state
               : state
-              ? state.replace(/-/g, " ")
-              : "in Dubai"}
+                ? state.replace(/-/g, " ")
+                : "in Dubai"}
           </h1>
           <p className="text-muted-foreground">
             Explore townhouses, penthouses, commercial properties and more
@@ -84,9 +85,9 @@ const OtherProperties = () => {
                 key={property._id}
                 className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() =>
-                  (window.location.href = `/other-properties/${property.title
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}/${property._id}`)
+                (window.location.href = `/other-properties/${property.title
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}/${property._id}`)
                 }
               >
                 <div className="aspect-[4/3] overflow-hidden">

@@ -33,8 +33,9 @@ const ProjectHero = ({ projectId }: { projectId: string }) => {
     const fetchProject = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/project-details/${projectId}`
-        );
+          `${import.meta.env.VITE_API_URL}/project-details/${projectId}`, {
+          credentials: 'include',
+        });
         if (!res.ok) {
           throw new Error("Failed to fetch project");
         }
@@ -101,7 +102,7 @@ const ProjectHero = ({ projectId }: { projectId: string }) => {
               <Building className="w-5 h-5 mr-2 text-muted-foreground" />
               <span className="text-muted-foreground mr-2">Developer:</span>
               <span className="font-semibold">{project.developer?.name}</span>
-             
+
             </div>
 
             {/* Quick Stats */}

@@ -33,8 +33,9 @@ const ProfilesSection = () => {
     const fetchProfiles = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/city-profiles`
-        );
+          `${import.meta.env.VITE_API_URL}/city-profiles`, {
+          credentials: 'include',
+        });
         const data = await res.json();
 
         // Agar API array return kar rahi hai
@@ -129,7 +130,7 @@ const ProfilesSection = () => {
                   <p className="text-muted-foreground leading-relaxed">
                     {profile.description}
                   </p>
-                
+
 
                   {/* Experience & Specialization */}
                   <div className="grid grid-cols-2 gap-4">
@@ -153,7 +154,7 @@ const ProfilesSection = () => {
                         </p>
                       </div>
                     </div>
-                     <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2">
                       <Briefcase className="w-4 h-4 text-primary" />
                       <div>
                         <p className="text-xs text-muted-foreground">

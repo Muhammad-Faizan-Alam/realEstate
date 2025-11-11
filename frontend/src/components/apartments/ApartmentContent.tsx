@@ -34,6 +34,8 @@ import {
   Square,
   Heart,
   Share2,
+  X,
+  Navigation,
 } from "lucide-react";
 import FilterSidebar from "./FilterSidebar";
 import PropertyCard from "./PropertyCard";
@@ -62,6 +64,10 @@ interface ApartmentContentProps {
   apartmentTypes: { type: string; description: string }[];
   propertyType?: string;
   transactionType?: string;
+  selectedCoordinates?: { lat: number; lng: number } | null;
+  isFilteringByRadius?: boolean;
+  onToggleRadiusFilter?: () => void;
+  onClearRadiusFilter?: () => void;
 }
 
 const ApartmentContent: React.FC<ApartmentContentProps> = ({
@@ -87,7 +93,23 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
   state,
   propertyType,
   transactionType,
+  selectedCoordinates,
+  isFilteringByRadius = false,
+  onToggleRadiusFilter,
+  onClearRadiusFilter,
 }) => {
+  // Format location name for display
+  const getDisplayLocation = () => {
+    if (selectedCoordinates && location && location !== "any") {
+      return location;
+    }
+    return filteredApartments.length > 0
+      ? filteredApartments[0]?.state
+      : state
+      ? state.replace(/-/g, " ")
+      : "in Dubai";
+  };
+
   return (
     <>
       <div className="container mx-auto px-4 py-4">
@@ -124,20 +146,73 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
             popularAreas={popularAreas}
           />
           <div className="lg:col-span-3">
+            {/* Radius Filter Status */}
+            {selectedCoordinates && (
+              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <Navigation className="w-5 h-5 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-800">
+                        Location Filter Active
+                      </span>
+                    </div>
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <MapPin className="w-3 h-3 mr-1" />
+                      {location && location !== "any" ? location : "Selected Area"}
+                    </Badge>
+                    <Badge variant="outline" className="bg-white">
+                      Within 10km radius
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="radiusToggle"
+                        checked={isFilteringByRadius}
+                        onChange={onToggleRadiusFilter}
+                        className="w-4 h-4 text-blue-600 bg-white border-blue-300 rounded focus:ring-blue-500"
+                      />
+                      <label htmlFor="radiusToggle" className="text-sm text-blue-700 font-medium">
+                        Apply Radius Filter
+                      </label>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={onClearRadiusFilter}
+                      className="h-8 px-3 text-blue-600 border-blue-300 hover:bg-blue-100"
+                    >
+                      <X className="w-3 h-3 mr-1" />
+                      Clear
+                    </Button>
+                  </div>
+                </div>
+                {!isFilteringByRadius && (
+                  <p className="text-xs text-blue-600 mt-2">
+                    Radius filter is disabled. Showing all properties in the area.
+                  </p>
+                )}
+              </div>
+            )}
+
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="text-3xl font-bold mb-4">
-                  Apartments for Sale{" "}
-                  {filteredApartments.length > 0
-                    ? filteredApartments[0].state
-                    : state
-                    ? state.replace(/-/g, " ")
-                    : "in Dubai"}
+                  {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "Apartments"} for {transactionType === "sale" ? "Sale" : "Rent"}{" "}
+                  {getDisplayLocation()}
                 </h1>
 
-                <p className="text-muted-foreground">
-                  {filteredApartments.length} properties found
-                </p>
+                <div className="flex items-center gap-4 text-muted-foreground">
+                  <span>{filteredApartments.length} properties found</span>
+                  {selectedCoordinates && isFilteringByRadius && (
+                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                      <Navigation className="w-3 h-3 mr-1" />
+                      Within 10km radius
+                    </Badge>
+                  )}
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -156,6 +231,7 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                 </Button>
               </div>
             </div>
+
             {filteredApartments.length > 0 ? (
               <div
                 className={`grid gap-6 mb-8 ${
@@ -165,7 +241,12 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                 }`}
               >
                 {filteredApartments.map((property) => (
-                  <PropertyCard key={property._id} property={property} />
+                  <PropertyCard 
+                    key={property._id} 
+                    property={property}
+                    showDistance={isFilteringByRadius && selectedCoordinates}
+                    centerCoordinates={selectedCoordinates}
+                  />
                 ))}
               </div>
             ) : (
@@ -176,40 +257,29 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                     No properties found
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    No properties match your current search criteria. Try
-                    adjusting your filters to see more results.
+                    {selectedCoordinates && isFilteringByRadius 
+                      ? "No properties found within 10km of your selected location. Try adjusting your filters or expanding the search area."
+                      : "No properties match your current search criteria. Try adjusting your filters to see more results."
+                    }
                   </p>
-                  <Button variant="outline" onClick={resetFilters}>
-                    Reset Filters
-                  </Button>
+                  <div className="flex gap-2 justify-center">
+                    <Button variant="outline" onClick={resetFilters}>
+                      Reset All Filters
+                    </Button>
+                    {selectedCoordinates && (
+                      <Button variant="outline" onClick={onClearRadiusFilter}>
+                        Clear Location
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
-            {/* <Pagination className="mb-12">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" isActive>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">3</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination> */}
+
             <div className="space-y-12">
               <section>
                 <h2 className="text-2xl font-bold mb-6">
-                  Invest in Off-Plan Apartments
+                  Invest in Off-Plan {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "Apartments"}
                 </h2>
                 <div className="">
                   <Card className="p-6">
@@ -221,46 +291,29 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                       <li>• Choice of premium units</li>
                     </ul>
                   </Card>
-                  {/* <Card className="p-6">
-                    <h3 className="font-semibold mb-3">New Projects</h3>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Dubai South developments</li>
-                      <li>• Mohammed Bin Rashid City</li>
-                      <li>• Dubai Hills Estate</li>
-                      <li>• Meydan City projects</li>
-                    </ul>
-                  </Card> */}
                 </div>
               </section>
+
               <section>
-                {/* <h2 className="text-2xl font-bold mb-6">
-                  Guide to Buying an Apartment in Dubai
-                </h2> */}
                 <h2 className="text-2xl font-bold mb-4">
-                  Guide to Buying an Apartment{" "}
-                  {filteredApartments.length > 0
-                    ? filteredApartments[0].state
-                    : state
-                    ? state.replace(/-/g, " ")
-                    : "in Dubai"}
+                  Guide to {transactionType === "sale" ? "Buying" : "Renting"} {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "an Apartment"} {getDisplayLocation()}
                 </h2>
                 <div className="prose max-w-none">
                   <p className="text-muted-foreground mb-4">
-                    Dubai's real estate market offers exceptional opportunities
+                    {getDisplayLocation()}'s real estate market offers exceptional opportunities
                     for both residents and investors. With its strategic
                     location, world-class infrastructure, and tax-free
-                    environment, Dubai has become a preferred destination for
+                    environment, {getDisplayLocation()} has become a preferred destination for
                     property investment.
                   </p>
                   <p className="text-muted-foreground mb-4">
-                    When buying an apartment in Dubai, consider factors such as
+                    When {transactionType === "sale" ? "buying" : "renting"} {propertyType ? propertyType : "an apartment"} in {getDisplayLocation()}, consider factors such as
                     location, developer reputation, payment plans, and future
-                    development projects in the area. Popular areas like
-                    Downtown Dubai, Dubai Marina, and JVC offer different
+                    development projects in the area. Popular areas offer different
                     lifestyle options and investment potential.
                   </p>
                   <p className="text-muted-foreground">
-                    The buying process typically involves securing pre-approval,
+                    The {transactionType === "sale" ? "buying" : "renting"} process typically involves securing pre-approval,
                     choosing a property, conducting due diligence, and
                     completing the transaction through the Dubai Land
                     Department. Professional guidance from licensed real estate
@@ -268,14 +321,10 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                   </p>
                 </div>
               </section>
+
               <section>
                 <h2 className="text-2xl font-bold mb-4">
-                  Top Apartment Types for Sale{" "}
-                  {filteredApartments.length > 0
-                    ? filteredApartments[0].state
-                    : state
-                    ? state.replace(/-/g, " ")
-                    : "in Dubai"}
+                  Top {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "Apartment"} Types for {transactionType === "sale" ? "Sale" : "Rent"} {getDisplayLocation()}
                 </h2>
                 <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {apartmentTypes.map((type, index) => (
@@ -292,71 +341,7 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                   ))}
                 </div>
               </section>
-              {/* <section>
-                <h2 className="text-2xl font-bold mb-4">
-                  Popular Developers for Apartments{" "}
-                  {filteredApartments.length > 0
-                    ? filteredApartments[0].state
-                    : state
-                    ? state.replace(/-/g, " ")
-                    : "in Dubai"}
-                </h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                  {developers.map((developer, index) => (
-                    <Card
-                      key={index}
-                      className="p-4 text-center hover:shadow-lg transition-shadow cursor-pointer"
-                    >
-                      <img
-                        src={developer.logo}
-                        alt={developer.name}
-                        className="w-16 h-16 mx-auto mb-2 rounded object-cover"
-                      />
-                      <p className="text-sm font-medium">{developer.name}</p>
-                    </Card>
-                  ))}
-                </div>
-              </section> */}
-              {/* <section>
-                <h2 className="text-2xl font-bold mb-4">
-                  Popular Searches of Apartments for Sale{" "}
-                  {filteredApartments.length > 0
-                    ? filteredApartments[0].state
-                    : state
-                    ? state.replace(/-/g, " ")
-                    : "in Dubai"}
-                </h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <Card className="p-6">
-                    <h3 className="font-semibold mb-4">By Location</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {popularAreas.map((area) => (
-                        <Badge
-                          key={area}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-primary hover:text-primary-foreground"
-                        >
-                          {area} Apartments
-                        </Badge>
-                      ))}
-                    </div>
-                  </Card>
-                  <Card className="p-6">
-                    <h3 className="font-semibold mb-4">By Type</h3>
-                    <div className="space-y-2">
-                      {apartmentTypes.map((type, index) => (
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-primary hover:text-primary-foreground mr-2"
-                        >
-                          {type.type} Apartments Dubai
-                        </Badge>
-                      ))}
-                    </div>
-                  </Card>
-                </div>
-              </section> */}
+
               <section>
                 <h2 className="text-2xl font-bold mb-6">
                   Top Locations with High ROI
@@ -377,21 +362,6 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                   )}
                 </div>
               </section>
-              {/* <section>
-                <h2 className="text-2xl font-bold mb-6">
-                  Frequently Asked Questions
-                </h2>
-                <Accordion type="single" collapsible className="w-full">
-                  {faqData.map((faq, index) => (
-                    <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className="text-left">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent>{faq.answer}</AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </section> */}
             </div>
           </div>
         </div>

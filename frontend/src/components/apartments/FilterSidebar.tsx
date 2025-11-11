@@ -56,7 +56,9 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   useEffect(() => {
     const fetchAgents = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/agents`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/agents`, {
+          credentials: 'include',
+        });
         if (!res.ok) throw new Error("Failed to fetch agents");
         const data = await res.json();
         setAgents(data);
@@ -77,7 +79,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
         </div>
         <div className="space-y-6">
           {/* Location */}
-          <div>
+          {/* <div>
             <label className="text-sm font-medium mb-2 block">Location</label>
             <Select value={location} onValueChange={setLocation}>
               <SelectTrigger>
@@ -92,7 +94,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 ))}
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           {/* Price Range */}
           <div>

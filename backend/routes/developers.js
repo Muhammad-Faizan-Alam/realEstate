@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const developerController = require("../controllers/developerController");
+const { authMiddleware } = require('../middleware/auth');
+
+// All routes are protected by auth middleware
+router.use(authMiddleware);
 
 // CRUD routes
 router.get("/", developerController.listDevelopers);

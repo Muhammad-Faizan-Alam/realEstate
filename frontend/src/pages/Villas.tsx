@@ -21,8 +21,9 @@ const Villas = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/properties?propertyType=Villas`
-        );
+          `${import.meta.env.VITE_API_URL}/properties?propertyType=Villas`, {
+          credentials: 'include',
+        });
         const data = await res.json();
         console.log("Fetched properties:", data);
         // Step 1: sirf villas filter karo
@@ -47,7 +48,7 @@ const Villas = () => {
           const locationMatch =
             !state ||
             villa.state?.toLowerCase().replace(/\s+/g, "-") ===
-              state.toLowerCase();
+            state.toLowerCase();
 
           let priceMatch = true;
           if (priceRange) {
@@ -86,13 +87,13 @@ const Villas = () => {
 
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
-           <h1 className="text-3xl font-bold mb-4">
+          <h1 className="text-3xl font-bold mb-4">
             Villas for Sale{" "}
             {filteredVillas.length > 0
               ? filteredVillas[0].state
               : state
-              ? state.replace(/-/g, " ")
-              : "in Dubai"}
+                ? state.replace(/-/g, " ")
+                : "in Dubai"}
           </h1>
           <p className="text-muted-foreground">
             Discover luxury villas in Dubai's most prestigious communities

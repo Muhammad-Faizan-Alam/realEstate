@@ -12,12 +12,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { LocationSearch } from "@/components/LocationSearch";
 import heroBg from "@/assets/hero-bg.jpg";
+
+interface SelectedLocation {
+  name: string;
+  lat: number;
+  lng: number;
+}
 
 const Hero = () => {
   const navigate = useNavigate();
   const [transactionType, setTransactionType] = useState("buy");
   const [location, setLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState<SelectedLocation | null>(null);
   const [propertyType, setPropertyType] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [beds, setBeds] = useState("");
@@ -28,10 +36,6 @@ const Hero = () => {
     "Villa",
     "Townhouse",
     "Other",
-    // "Penthouse",
-    // "Land",
-    // "Floor",
-    // "Building"
   ];
 
   const priceRanges = [
@@ -46,6 +50,12 @@ const Hero = () => {
   const bedsOptions = ["Any", "Studio", "1", "2", "3", "4", "5+"];
   const bathsOptions = ["Any", "1", "2", "3", "4", "5+"];
 
+  const handleLocationSelect = (locationData: SelectedLocation) => {
+    setSelectedLocation(locationData);
+    // You can use locationData.lat and locationData.lng for your 10km filtering
+    console.log('Selected location coordinates:', locationData);
+  };
+
   const handleSearch = () => {
     if (!propertyType) return;
 
@@ -53,24 +63,43 @@ const Hero = () => {
     params.set('property', propertyType);
     if (transactionType) params.set('type', transactionType);
     if (location) params.set('location', location);
+    
+    // Add coordinates if location is selected
+    if (selectedLocation) {
+      params.set('lat', selectedLocation.lat.toString());
+      params.set('lng', selectedLocation.lng.toString());
+    }
+    
     if (priceRange && priceRange !== 'any price') params.set('priceRange', priceRange);
     if (beds && beds !== 'any') params.set('beds', beds);
     if (baths && baths !== 'any') params.set('baths', baths);
 
-    const routes: { [key: string]: string } = {
-      'apartment': '/apartment',
-      'villa': '/villa',
-      'townhouse': '/townhouse',
-      'other': '/other',
-      // 'penthouse': '/apartment',
-      // 'land': '/land',
-      // 'floor': '/floor',
-      // 'building': '/building'
-    };
-
-    // const route = routes[propertyType] || '/apartments';
-    const route = 'properties'
+    const route = 'properties';
     navigate(`${route}?${params.toString()}`);
+  };
+
+  // Utility function to calculate distance (for your property filtering)
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371; // Earth radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
+
+  // Function to filter properties within 10km radius
+  const filterPropertiesWithinRadius = (properties: any[], centerLat: number, centerLng: number, radiusKm: number = 10) => {
+    return properties.filter(property => {
+      const distance = calculateDistance(
+        centerLat, centerLng,
+        property.latitude, property.longitude
+      );
+      return distance <= radiusKm;
+    });
   };
 
   return (
@@ -96,43 +125,10 @@ const Hero = () => {
 
         {/* Search Tabs */}
         <Tabs defaultValue="properties" className="w-full">
-          {/* <TabsList className="grid grid-cols-5 w-full max-w-2xl mx-auto mb-6 bg-white/10 backdrop-blur">
-            <TabsTrigger 
-              value="properties" 
-              className="text-white data-[state=active]:bg-white data-[state=active]:text-primary"
-            >
-              All Properties
-            </TabsTrigger>
-            <TabsTrigger 
-              value="projects"
-              className="text-white data-[state=active]:bg-white data-[state=active]:text-primary"
-            >
-              New Projects
-            </TabsTrigger>
-            <TabsTrigger 
-              value="transactions"
-              className="text-white data-[state=active]:bg-white data-[state=active]:text-primary"
-            >
-              Transactions
-            </TabsTrigger>
-            <TabsTrigger 
-              value="estimate"
-              className="text-white data-[state=active]:bg-white data-[state=active]:text-primary"
-            >
-              TruEstimate™
-            </TabsTrigger>
-            <TabsTrigger 
-              value="agents"
-              className="text-white data-[state=active]:bg-white data-[state=active]:text-primary"
-            >
-              Agents
-            </TabsTrigger>
-          </TabsList> */}
-
           <TabsContent value="properties">
             <div className="bg-white/10 backdrop-blur rounded-lg shadow-card-hover p-6">
               {/* Buy/Rent Toggle */}
-              <div className="flex gap-2 mb-4">
+              <div className="flex gap-2 mb-4 flex-wrap">
                 <Badge
                   variant={transactionType === "buy" ? "default" : "secondary"}
                   className="px-8 py-2 cursor-pointer text-sm font-medium"
@@ -148,17 +144,13 @@ const Hero = () => {
                   Rent
                 </Badge>
 
-                {/* Location */}
-                <div className="lg:col-span-2 w-full">
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Location (e.g., Dubai Marina)"
-                      className="pl-10"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  </div>
+                {/* Location Search */}
+                <div className="flex-1 min-w-[200px]">
+                  <LocationSearch
+                    value={location}
+                    onChange={setLocation}
+                    onLocationSelect={handleLocationSelect}
+                  />
                 </div>
               </div>
 
@@ -217,6 +209,7 @@ const Hero = () => {
                   <Button
                     className="w-full h-10 bg-primary hover:bg-primary-hover"
                     onClick={handleSearch}
+                    disabled={!propertyType}
                   >
                     <Search className="w-4 h-4 mr-2" />
                     Search

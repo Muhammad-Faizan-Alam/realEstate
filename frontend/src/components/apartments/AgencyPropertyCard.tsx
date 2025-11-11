@@ -83,6 +83,7 @@ const AgencyPropertyCard = ({ property, loading = false }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/${property._id}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
       if (response.ok) {
         alert("Property deleted successfully");

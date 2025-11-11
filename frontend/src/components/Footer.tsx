@@ -28,7 +28,9 @@ const Footer = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/partners`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/partners`, {
+          credentials: "include"
+        });
         const data = await res.json();
         console.log("Fetched partners:", data);
         setPartners(data);

@@ -24,7 +24,9 @@ const Apartments = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/properties`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/properties`, {
+          credentials: 'include',
+        });
         const data = await response.json();
 
         // ✅ only apartments
@@ -45,7 +47,9 @@ const Apartments = () => {
   useEffect(() => {
     const fetchDevelopers = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/developers`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/developers`, {
+          credentials: 'include',
+        });
         const data = await response.json();
         setDevelopers(data);
       } catch (error) {

@@ -19,7 +19,9 @@ const ProjectDetail = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!id) return;
-    fetch(`${import.meta.env.VITE_API_URL}/project-details/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/project-details/${id}`, {
+      credentials: 'include',
+    })
       .then((res) => {
         console.log("Project API status:", res.status);
         return res.json();

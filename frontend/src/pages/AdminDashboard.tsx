@@ -24,10 +24,18 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
         const [usersRes, agentsRes, agenciesRes, propertiesRes] = await Promise.all([
-          fetch(`${import.meta.env.VITE_API_URL}/user`),
-          fetch(`${import.meta.env.VITE_API_URL}/agents`),
-          fetch(`${import.meta.env.VITE_API_URL}/agencies`),
-          fetch(`${import.meta.env.VITE_API_URL}/properties`)
+          fetch(`${import.meta.env.VITE_API_URL}/user`, {
+            credentials: "include"
+          }),
+          fetch(`${import.meta.env.VITE_API_URL}/agents`, {
+            credentials: "include"
+          }),
+          fetch(`${import.meta.env.VITE_API_URL}/agencies`, {
+            credentials: "include"
+          }),
+          fetch(`${import.meta.env.VITE_API_URL}/properties`, {
+            credentials: "include"
+          })
         ]);
 
         const [usersData, agentsData, agenciesData, propertiesData] = await Promise.all([

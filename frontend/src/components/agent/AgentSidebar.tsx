@@ -67,8 +67,9 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/agencies/${agent._id}/counts`
-      );
+        `${import.meta.env.VITE_API_URL}/agencies/${agent._id}/counts`, {
+        credentials: "include"
+      });
       const data = await res.json();
       setCounts(data);
     } catch (error) {
@@ -140,9 +141,9 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
         {/* Agent Info */}
         <div className={`flex items-center gap-3 mb-6 p-2 rounded-md cursor-pointer
           ${storiesTab ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'text-gray-700 hover:bg-gray-50'}`}
-          onClick={() => {setStoriesTab(!storiesTab)}}>
+          onClick={() => { setStoriesTab(!storiesTab) }}>
           <div className="min-w-0 flex flex-wrap items-center gap-2 cursor-pointer">
-              <Video className="w-4 h-4" />
+            <Video className="w-4 h-4" />
             <h3 className="font-semibold text-sm truncate">
               Stories</h3>
           </div>
@@ -172,8 +173,8 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
                     className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeSection === section.id
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
-                        : "text-gray-700 hover:bg-gray-50"
+                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      : "text-gray-700 hover:bg-gray-50"
                       }`}
                   >
                     <Icon className="h-4 w-4 flex-shrink-0" />
@@ -216,8 +217,8 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
                     key={state}
                     onClick={() => setActiveState(stateKey)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeState === stateKey
-                        ? "bg-gray-100 text-gray-900 font-medium"
-                        : "text-gray-600 hover:bg-gray-50"
+                      ? "bg-gray-100 text-gray-900 font-medium"
+                      : "text-gray-600 hover:bg-gray-50"
                       }`}
                   >
                     <span className="truncate">{state}</span>
@@ -258,8 +259,8 @@ const AgentSidebar: React.FC<AgentSidebarProps> = ({
                     key={status}
                     onClick={() => setActiveStatus(status)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeStatus === status
-                        ? "bg-gray-100 text-gray-900 font-medium"
-                        : "text-gray-600 hover:bg-gray-50"
+                      ? "bg-gray-100 text-gray-900 font-medium"
+                      : "text-gray-600 hover:bg-gray-50"
                       }`}
                   >
                     <span className="truncate capitalize">{status}</span>

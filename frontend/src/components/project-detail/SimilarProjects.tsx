@@ -30,8 +30,9 @@ const SimilarProjects = ({ currentProjectId, city }: SimilarProjectsProps) => {
     const fetchProjects = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/project-details`
-        ); // apni API ka URL
+          `${import.meta.env.VITE_API_URL}/project-details`, {
+          credentials: 'include',
+        }); // apni API ka URL
         const data = await res.json();
 
         // Filter same city projects, excluding current one
@@ -98,11 +99,10 @@ const SimilarProjects = ({ currentProjectId, city }: SimilarProjectsProps) => {
               }).map((_, index) => (
                 <div
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    Math.floor(currentIndex / itemsPerPage) === index
+                  className={`w-2 h-2 rounded-full transition-colors ${Math.floor(currentIndex / itemsPerPage) === index
                       ? "bg-primary"
                       : "bg-muted"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

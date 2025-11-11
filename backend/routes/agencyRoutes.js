@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const agencyController = require("../controllers/agencyController");
+const { authMiddleware } = require('../middleware/auth');
+
+// All routes are protected by auth middleware
+router.use(authMiddleware);
 
 router.get("/", agencyController.listAgencies);
 router.get("/:id", agencyController.getAgency);

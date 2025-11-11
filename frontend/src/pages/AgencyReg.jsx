@@ -116,7 +116,9 @@ const AgencyReg = () => {
     const findAgency = async () => {
       try {
         setLoadingAgency(true);
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/agencies/find/${user._id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/agencies/find/${user._id}`, {
+          credentials: 'include',
+        });
         if (res.ok) setIsAgency(true);
         const data = await res.json();
         setAgency(data);
@@ -182,6 +184,7 @@ const AgencyReg = () => {
       };
       const res = await fetch(`${import.meta.env.VITE_API_URL}/agencies`, {
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/projectController');
+const { authMiddleware } = require('../middleware/auth');
+
+// All routes are protected by auth middleware
+router.use(authMiddleware);
 
 // public
 router.get('/', ctrl.listProjects);

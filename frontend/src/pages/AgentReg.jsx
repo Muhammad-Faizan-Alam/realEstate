@@ -34,7 +34,9 @@ const AgentDashboard = () => {
 
         const findAgent = async () => {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/agents/find/${user._id}`);
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/agents/find/${user._id}`, {
+                    credentials: 'include',
+                });
                 if (res.ok) setIsAgent(true);
                 const data = await res.json();
             } catch (error) {
@@ -88,6 +90,7 @@ const AgentDashboard = () => {
         try {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/agents`, {
                 method: "POST",
+                credentials: 'include',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     user: user._id,

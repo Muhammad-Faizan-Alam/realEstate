@@ -19,6 +19,7 @@ const AdminPropertyCard = ({ property }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/verify/${property._id}`, {
         method: 'PATCH',
+        credentials: 'include',
       });
       if (response.ok) {
         alert("Property verification status changed successfully");
@@ -35,6 +36,7 @@ const AdminPropertyCard = ({ property }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/${property._id}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
       if (response.ok) {
         alert("Property deleted successfully");
@@ -115,24 +117,24 @@ const AdminPropertyCard = ({ property }) => {
         </div>
       </CardContent>
       <div className="flex gap-2 m-4">
-            {
-              property.propertyInfo.truCheck ? (
-                <Button size="sm" className="flex-1 bg-green-500" onClick={handleVerify}>
-                  <Verified className="w-4 h-4 mr-1" />
-                  truChecked
-                </Button>
-              ) : (
-                <Button size="sm" className="flex-1" onClick={handleVerify}>
-                  <Verified className="w-4 h-4 mr-1" />
-                  truCheck
-                </Button>
-              )
-            }
-            <Button size="sm" variant="outline" className="flex-1 bg-red-500" onClick={handleDelete}>
-              <Trash2 className="w-4 h-4 mr-1" />
-              Remove
+        {
+          property.propertyInfo.truCheck ? (
+            <Button size="sm" className="flex-1 bg-green-500" onClick={handleVerify}>
+              <Verified className="w-4 h-4 mr-1" />
+              truChecked
             </Button>
-          </div>
+          ) : (
+            <Button size="sm" className="flex-1" onClick={handleVerify}>
+              <Verified className="w-4 h-4 mr-1" />
+              truCheck
+            </Button>
+          )
+        }
+        <Button size="sm" variant="outline" className="flex-1 bg-red-500" onClick={handleDelete}>
+          <Trash2 className="w-4 h-4 mr-1" />
+          Remove
+        </Button>
+      </div>
     </Card>
   );
 };

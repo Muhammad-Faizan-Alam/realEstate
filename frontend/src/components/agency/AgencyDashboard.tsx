@@ -28,7 +28,9 @@ const AgencyDashboard = () => {
         if (data?._id) {
           setUser(data);
           // Fetch agency data
-          const agencyRes = await fetch(`${import.meta.env.VITE_API_URL}/agencies/find/${data._id}`);
+          const agencyRes = await fetch(`${import.meta.env.VITE_API_URL}/agencies/find/${data._id}`, {
+            credentials: "include"
+          });
           if (agencyRes.ok) {
             const agencyData = await agencyRes.json();
             setAgency(agencyData);
@@ -83,7 +85,7 @@ const AgencyDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       {/* Mobile Sidebar Trigger */}
       <div className="lg:hidden fixed top-20 left-4 z-40">
         <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
@@ -99,7 +101,7 @@ const AgencyDashboard = () => {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            <AgencySidebar 
+            <AgencySidebar
               activeSection={activeSection}
               setActiveSection={setActiveSection}
               activeState={activeState}
@@ -115,7 +117,7 @@ const AgencyDashboard = () => {
       <div className="flex">
         {/* Desktop Sidebar */}
         <div className="hidden lg:block lg:w-64 xl:w-72 flex-shrink-0">
-          <AgencySidebar 
+          <AgencySidebar
             activeSection={activeSection}
             setActiveSection={setActiveSection}
             activeState={activeState}
@@ -136,7 +138,7 @@ const AgencyDashboard = () => {
           />
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

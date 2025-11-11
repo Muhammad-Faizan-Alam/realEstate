@@ -29,8 +29,9 @@ const ProjectOverview = () => {
     const fetchProject = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/project-details`
-        );
+          `${import.meta.env.VITE_API_URL}/project-details`, {
+          credentials: 'include',
+        });
         const data: ProjectDetail[] = await response.json();
 
         // Filhaal ek hi project dikhana ho, pehle project ko set kar dete hain

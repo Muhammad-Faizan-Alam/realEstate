@@ -6,6 +6,7 @@ const UsersTab = ({ users, onDeleteUser }) => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/user/${userId}`, {
           method: 'DELETE',
+          credentials: 'include',
         });
         if (response.ok) {
           onDeleteUser(userId);

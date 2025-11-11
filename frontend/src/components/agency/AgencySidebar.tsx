@@ -61,11 +61,12 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
 
   const fetchCounts = async () => {
     if (!agency?._id) return;
-    
+
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/agencies/${agency._id}/counts`
-      );
+        `${import.meta.env.VITE_API_URL}/agencies/${agency._id}/counts`, {
+        credentials: "include"
+      });
       const data = await res.json();
       setCounts(data);
     } catch (error) {
@@ -144,11 +145,10 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      activeSection === section.id
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeSection === section.id
                         ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : "text-gray-700 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <Icon className="h-4 w-4 flex-shrink-0" />
                     <span className="flex-1 text-left truncate">{section.label}</span>
@@ -184,16 +184,15 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
               {states.map((state) => {
                 const stateKey = state.toLowerCase();
                 const count = stateCounts[stateKey as keyof typeof stateCounts] || 0;
-                
+
                 return (
                   <button
                     key={state}
                     onClick={() => setActiveState(stateKey)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
-                      activeState === stateKey
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeState === stateKey
                         ? "bg-gray-100 text-gray-900 font-medium"
                         : "text-gray-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <span className="truncate">{state}</span>
                     {count > 0 && (
@@ -227,16 +226,15 @@ const AgencySidebar: React.FC<AgencySidebarProps> = ({
             <div className="space-y-1">
               {statusTypes.map((status) => {
                 const count = statusCounts[status as keyof typeof statusCounts] || 0;
-                
+
                 return (
                   <button
                     key={status}
                     onClick={() => setActiveStatus(status)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
-                      activeStatus === status
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeStatus === status
                         ? "bg-gray-100 text-gray-900 font-medium"
                         : "text-gray-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <span className="truncate capitalize">{status}</span>
                     {count > 0 && (

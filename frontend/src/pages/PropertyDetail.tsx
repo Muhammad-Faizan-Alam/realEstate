@@ -20,8 +20,9 @@ const PropertyDetailPage = () => {
     const fetchProperty = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/properties/${id}`
-        );
+          `${import.meta.env.VITE_API_URL}/properties/${id}`, {
+          credentials: 'include',
+        });
         const data = await res.json();
         setProperty(data);
         console.log("jj", data);
@@ -32,7 +33,9 @@ const PropertyDetailPage = () => {
 
     const fetchRecommended = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/properties`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/properties`, {
+          credentials: 'include',
+        });
         const data = await res.json();
         console.log(data);
         const filtered = data.filter((p: any) => p._id !== id).slice(0, 3);
