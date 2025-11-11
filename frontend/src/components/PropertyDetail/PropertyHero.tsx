@@ -8,7 +8,7 @@ const PropertyHero = ({ property }) => {
     <div className="relative">
       <Carousel className="w-full">
         <CarouselContent>
-          {property.images.map((image, index) => (
+          {property?.images && property?.images.length > 0 ? property?.images.map((image, index) => (
             <CarouselItem key={index}>
               <div className="aspect-[16/10] overflow-hidden rounded-lg">
                 <img
@@ -21,7 +21,18 @@ const PropertyHero = ({ property }) => {
                 />
               </div>
             </CarouselItem>
-          ))}
+          )) : (
+            <div className="aspect-[16/10] overflow-hidden rounded-lg">
+              <img
+                src={property?.images || "https://via.placeholder.com/800x500"}
+                alt={`${property.title}`}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "https://via.placeholder.com/800x500";
+                }}
+              />
+            </div>
+          )}
           {property.videos.map((video, index) => (
             <CarouselItem key={`video-${index}`}>
               <div className="aspect-[16/10] overflow-hidden rounded-lg bg-black flex items-center justify-center">

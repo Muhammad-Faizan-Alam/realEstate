@@ -105,7 +105,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
       </div>
 
       {/* Selected Location Badge */}
-      {selectedLocation && (
+      {/* {selectedLocation && (
         <div className="mt-2">
           <Badge variant="secondary" className="flex items-center gap-2">
             <MapPin className="h-3 w-3" />
@@ -119,7 +119,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
             </button>
           </Badge>
         </div>
-      )}
+      )} */}
 
       {/* Error Message */}
       {error && (

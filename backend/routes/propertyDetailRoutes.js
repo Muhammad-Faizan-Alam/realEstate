@@ -7,7 +7,7 @@ const { authMiddleware } = require('../middleware/auth');
 // router.use(authMiddleware);
 // CRUD Routes
 router.get("/", propertyDetailController.getAllProperties);
-router.get("/:id", authMiddleware, propertyDetailController.getPropertyById);
+router.get("/:id", propertyDetailController.getPropertyById);
 router.get("/byagency/:id", authMiddleware, propertyDetailController.getPropertiesByAgency)
 router.post("/", authMiddleware, propertyDetailController.createProperty);
 router.put("/:id", authMiddleware, propertyDetailController.updateProperty);
