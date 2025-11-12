@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import AdminPropertyCard from "@/components/apartments/AdminPropertyCard";
 import Sidebar from '@/components/admin/Sidebar';
 import DashboardHome from '@/components/admin/DashboardHome';
@@ -301,8 +300,6 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
