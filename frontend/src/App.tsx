@@ -19,6 +19,7 @@ import AgentDashboard from "./components/agent/AgentDashboard";
 import Auth from './pages/Auth'
 import FindMyAgent from './pages/FindMyAgent'
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -40,7 +41,7 @@ const App = () => (
             path="/other-properties/:state"
             element={<OtherProperties />}
           />
-          
+
 
           <Route
             path="/apartments-in-dubai/:title/:id"
@@ -81,11 +82,11 @@ const App = () => (
 
 
           {/* Dashboards */}
-          <Route path="/agency/dashboard" element={<AgencyDashboard />} />
+          {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
+          {/* <Route path="/agency/dashboard" element={<AgencyDashboard />} /> */}
           <Route path="/agency/register" element={<AgencyReg />} />
           <Route path="/agent/register" element={<AgentReg />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/agent/dashboard" element={<AgentDashboard />} />
+          {/* <Route path="/agent/dashboard" element={<AgentDashboard />} /> */}
 
           <Route path="/agents" element={<FindMyAgent />} />
 
@@ -93,6 +94,25 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
+
+
+          {/* protected routes */}
+          <Route
+            path="/admin/dashboard"
+            element={<ProtectedRoute allowedRoles={['admin']} element={<AdminDashboard />} />}
+          />
+
+          <Route
+            path="/agency/dashboard"
+            element={<ProtectedRoute allowedRoles={['agency']} element={<AgencyDashboard />} />}
+          />
+
+          <Route
+            path="/agent/dashboard"
+            element={<ProtectedRoute allowedRoles={['agent']} element={<AgentDashboard />} />}
+          />
+
+
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

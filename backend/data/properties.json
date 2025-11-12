@@ -1,0 +1,917 @@
+[
+  {
+    "title": "Luxury Marina Apartment",
+    "location": "Dubai Marina",
+    "price": "2500000",
+    "beds": 3,
+    "baths": 3,
+    "sqft": 1800,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/marina_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Dubai",
+    "tags": ["Luxury", "Waterfront", "Modern"],
+    "developer": "Emaar",
+    "isOffPlan": false,
+    "paymentPlan": "quarterly",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "DM001",
+    "description": "Stunning marina view apartment with premium finishes",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Sale",
+      "refNo": "DM789123",
+      "completion": "2020",
+      "furnishing": "fully",
+      "truCheck": true,
+      "avgRent": "120000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Emaar",
+      "ownership": "freehold",
+      "buildUpArea": "1800",
+      "usage": "residential",
+      "parking": "2 covered"
+    },
+    "buildingInfo": {
+      "name": "Marina Heights",
+      "year": "2020",
+      "floors": "45",
+      "pools": "infinity",
+      "parking": "underground",
+      "area": "Dubai Marina",
+      "elevators": "high-speed"
+    },
+    "amenities": ["gym", "pool", "concierge", "security"],
+    "regulatoryInfo": {
+      "permitNo": "DM456789",
+      "zone": "Marina",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "987654",
+      "rera": "1234567",
+      "brn": "DM987654"
+    },
+    "coordinates": {
+      "lat": 25.0782,
+      "lng": 55.1395
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Villa in Arabian Ranches",
+    "location": "Arabian Ranches",
+    "price": "4200000",
+    "beds": 4,
+    "baths": 5,
+    "sqft": 3200,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/ranch_villa1.jpg"],
+    "videos": [],
+    "propertyType": "Villa",
+    "state": "Dubai",
+    "tags": ["Family", "Golf", "Community"],
+    "developer": "Emaar",
+    "isOffPlan": true,
+    "paymentPlan": "installment",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "AR002",
+    "description": "Spacious family villa in premium golf community",
+    "propertyInfo": {
+      "type": "Villa",
+      "purpose": "Sale",
+      "refNo": "AR456123",
+      "completion": "2024",
+      "furnishing": "semi",
+      "truCheck": true,
+      "avgRent": "180000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Emaar",
+      "ownership": "freehold",
+      "buildUpArea": "3200",
+      "usage": "residential",
+      "parking": "3 cars"
+    },
+    "buildingInfo": {
+      "name": "Ranches Oasis",
+      "year": "2024",
+      "floors": "2",
+      "pools": "private",
+      "parking": "garage",
+      "area": "Arabian Ranches",
+      "elevators": "none"
+    },
+    "amenities": ["garden", "pool", "gym", "park"],
+    "regulatoryInfo": {
+      "permitNo": "AR789456",
+      "zone": "Community",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "654321",
+      "rera": "2345678",
+      "brn": "AR654321"
+    },
+    "coordinates": {
+      "lat": 25.0392,
+      "lng": 55.2234
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Downtown Business Bay Office",
+    "location": "Business Bay",
+    "price": "1800000",
+    "beds": 0,
+    "baths": 2,
+    "sqft": 1200,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/bay_office1.jpg"],
+    "videos": [],
+    "propertyType": "Commercial",
+    "state": "Dubai",
+    "tags": ["Office", "Business", "Downtown"],
+    "developer": "Dubai Properties",
+    "isOffPlan": false,
+    "paymentPlan": "monthly",
+    "whatsappLink": "no",
+    "emailLink": "yes",
+    "refNumber": "BB003",
+    "description": "Premium office space in heart of Business Bay",
+    "propertyInfo": {
+      "type": "Office",
+      "purpose": "Sale",
+      "refNo": "BB987654",
+      "completion": "2019",
+      "furnishing": "no",
+      "truCheck": true,
+      "avgRent": "96000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Dubai Properties",
+      "ownership": "commercial",
+      "buildUpArea": "1200",
+      "usage": "commercial",
+      "parking": "allocated"
+    },
+    "buildingInfo": {
+      "name": "Bay Square",
+      "year": "2019",
+      "floors": "35",
+      "pools": "no",
+      "parking": "business",
+      "area": "Business Bay",
+      "elevators": "express"
+    },
+    "amenities": ["conference", "reception", "security"],
+    "regulatoryInfo": {
+      "permitNo": "BB123789",
+      "zone": "Commercial",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "789123",
+      "rera": "3456789",
+      "brn": "BB789123"
+    },
+    "coordinates": {
+      "lat": 25.1865,
+      "lng": 55.2743
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Beachfront Jumeirah Villa",
+    "location": "Jumeirah",
+    "price": "8500000",
+    "beds": 5,
+    "baths": 6,
+    "sqft": 4500,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/jumeirah_villa1.jpg"],
+    "videos": [],
+    "propertyType": "Villa",
+    "state": "Dubai",
+    "tags": ["Beach", "Luxury", "Private"],
+    "developer": "Nakheel",
+    "isOffPlan": false,
+    "paymentPlan": "yearly",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "JV004",
+    "description": "Exclusive beachfront villa with private access",
+    "propertyInfo": {
+      "type": "Villa",
+      "purpose": "Sale",
+      "refNo": "JV654987",
+      "completion": "2018",
+      "furnishing": "fully",
+      "truCheck": true,
+      "avgRent": "350000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Nakheel",
+      "ownership": "freehold",
+      "buildUpArea": "4500",
+      "usage": "residential",
+      "parking": "4 cars"
+    },
+    "buildingInfo": {
+      "name": "Beach Palace",
+      "year": "2018",
+      "floors": "3",
+      "pools": "private",
+      "parking": "private",
+      "area": "Jumeirah Beach",
+      "elevators": "private"
+    },
+    "amenities": ["beach", "pool", "garden", "gym"],
+    "regulatoryInfo": {
+      "permitNo": "JV987321",
+      "zone": "Beachfront",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "321654",
+      "rera": "4567890",
+      "brn": "JV321654"
+    },
+    "coordinates": {
+      "lat": 25.2285,
+      "lng": 55.2513
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Al Reem Island Apartment",
+    "location": "Al Reem Island",
+    "price": "950000",
+    "beds": 2,
+    "baths": 2,
+    "sqft": 1100,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/reem_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Abu Dhabi",
+    "tags": ["Island", "Modern", "Waterfront"],
+    "developer": "Tamouh",
+    "isOffPlan": true,
+    "paymentPlan": "installment",
+    "whatsappLink": "yes",
+    "emailLink": "no",
+    "refNumber": "RI005",
+    "description": "Contemporary apartment on Al Reem Island",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Sale",
+      "refNo": "RI789456",
+      "completion": "2025",
+      "furnishing": "semi",
+      "truCheck": true,
+      "avgRent": "55000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Tamouh",
+      "ownership": "freehold",
+      "buildUpArea": "1100",
+      "usage": "residential",
+      "parking": "1 covered"
+    },
+    "buildingInfo": {
+      "name": "Reem Towers",
+      "year": "2025",
+      "floors": "40",
+      "pools": "infinity",
+      "parking": "underground",
+      "area": "Al Reem Island",
+      "elevators": "modern"
+    },
+    "amenities": ["gym", "pool", "security", "retail"],
+    "regulatoryInfo": {
+      "permitNo": "RI456123",
+      "zone": "Island",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "654987",
+      "rera": "5678901",
+      "brn": "RI654987"
+    },
+    "coordinates": {
+      "lat": 24.4869,
+      "lng": 54.3891
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Sharjah Corniche Flat",
+    "location": "Al Khan",
+    "price": "480000",
+    "beds": 1,
+    "baths": 1,
+    "sqft": 800,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/sharjah_flat1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Sharjah",
+    "tags": ["Corniche", "Affordable", "Sea View"],
+    "developer": "Arada",
+    "isOffPlan": false,
+    "paymentPlan": "monthly",
+    "whatsappLink": "no",
+    "emailLink": "no",
+    "refNumber": "SH006",
+    "description": "Affordable corniche apartment with sea views",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Rent",
+      "refNo": "SH123789",
+      "completion": "2017",
+      "furnishing": "no",
+      "truCheck": true,
+      "avgRent": "22000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Arada",
+      "ownership": "leasehold",
+      "buildUpArea": "800",
+      "usage": "5 years",
+      "parking": "1 car"
+    },
+    "buildingInfo": {
+      "name": "Corniche Residence",
+      "year": "2017",
+      "floors": "15",
+      "pools": "no",
+      "parking": "open",
+      "area": "Al Khan",
+      "elevators": "standard"
+    },
+    "amenities": ["security", "balcony"],
+    "regulatoryInfo": {
+      "permitNo": "SH789123",
+      "zone": "Residential",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "321987",
+      "rera": "6789012",
+      "brn": "SH321987"
+    },
+    "coordinates": {
+      "lat": 25.3479,
+      "lng": 55.3876
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Ajman Marina View",
+    "location": "Ajman Marina",
+    "price": "320000",
+    "beds": 2,
+    "baths": 2,
+    "sqft": 950,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/ajman_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Ajman",
+    "tags": ["Marina", "Budget", "Investment"],
+    "developer": "Manazel",
+    "isOffPlan": true,
+    "paymentPlan": "installment",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "AJ007",
+    "description": "Budget-friendly apartment in Ajman Marina",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Sale",
+      "refNo": "AJ456789",
+      "completion": "2024",
+      "furnishing": "no",
+      "truCheck": true,
+      "avgRent": "18000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Manazel",
+      "ownership": "freehold",
+      "buildUpArea": "950",
+      "usage": "residential",
+      "parking": "1 covered"
+    },
+    "buildingInfo": {
+      "name": "Marina Tower",
+      "year": "2024",
+      "floors": "25",
+      "pools": "community",
+      "parking": "allocated",
+      "area": "Ajman Marina",
+      "elevators": "standard"
+    },
+    "amenities": ["gym", "pool", "security"],
+    "regulatoryInfo": {
+      "permitNo": "AJ987654",
+      "zone": "Marina",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "987321",
+      "rera": "7890123",
+      "brn": "AJ987321"
+    },
+    "coordinates": {
+      "lat": 25.4111,
+      "lng": 55.4450
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Ras Al Khaimah Mountain Villa",
+    "location": "Al Hamra",
+    "price": "1900000",
+    "beds": 4,
+    "baths": 4,
+    "sqft": 2800,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/rak_villa1.jpg"],
+    "videos": [],
+    "propertyType": "Villa",
+    "state": "Ras Al Khaimah",
+    "tags": ["Mountain", "Golf", "Luxury"],
+    "developer": "Al Hamra",
+    "isOffPlan": false,
+    "paymentPlan": "quarterly",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "RAK008",
+    "description": "Luxury villa with mountain and golf course views",
+    "propertyInfo": {
+      "type": "Villa",
+      "purpose": "Sale",
+      "refNo": "RAK321654",
+      "completion": "2021",
+      "furnishing": "fully",
+      "truCheck": true,
+      "avgRent": "85000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Al Hamra",
+      "ownership": "freehold",
+      "buildUpArea": "2800",
+      "usage": "residential",
+      "parking": "3 cars"
+    },
+    "buildingInfo": {
+      "name": "Mountain View",
+      "year": "2021",
+      "floors": "2",
+      "pools": "private",
+      "parking": "garage",
+      "area": "Al Hamra",
+      "elevators": "none"
+    },
+    "amenities": ["garden", "pool", "gym", "golf"],
+    "regulatoryInfo": {
+      "permitNo": "RAK654987",
+      "zone": "Residential",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "654123",
+      "rera": "8901234",
+      "brn": "RAK654123"
+    },
+    "coordinates": {
+      "lat": 25.6941,
+      "lng": 55.7573
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Fujairah Beach Resort",
+    "location": "Fujairah Corniche",
+    "price": "2800000",
+    "beds": 3,
+    "baths": 3,
+    "sqft": 2000,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/fujairah_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Fujairah",
+    "tags": ["Beach", "Resort", "East Coast"],
+    "developer": "Eagle Hills",
+    "isOffPlan": true,
+    "paymentPlan": "installment",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "FJ009",
+    "description": "Resort-style beachfront apartment on East Coast",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Sale",
+      "refNo": "FJ987123",
+      "completion": "2025",
+      "furnishing": "fully",
+      "truCheck": true,
+      "avgRent": "75000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Eagle Hills",
+      "ownership": "freehold",
+      "buildUpArea": "2000",
+      "usage": "residential",
+      "parking": "2 covered"
+    },
+    "buildingInfo": {
+      "name": "Beach Resort",
+      "year": "2025",
+      "floors": "20",
+      "pools": "infinity",
+      "parking": "resort",
+      "area": "Fujairah Corniche",
+      "elevators": "panoramic"
+    },
+    "amenities": ["beach", "pool", "spa", "gym"],
+    "regulatoryInfo": {
+      "permitNo": "FJ123987",
+      "zone": "Beachfront",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "987654",
+      "rera": "9012345",
+      "brn": "FJ987654"
+    },
+    "coordinates": {
+      "lat": 25.1223,
+      "lng": 56.3342
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Umm Al Quwain Marina",
+    "location": "Umm Al Quwain Marina",
+    "price": "650000",
+    "beds": 2,
+    "baths": 2,
+    "sqft": 1050,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/uaq_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Umm Al Quwain",
+    "tags": ["Marina", "Quiet", "Waterfront"],
+    "developer": "Barwa",
+    "isOffPlan": false,
+    "paymentPlan": "monthly",
+    "whatsappLink": "no",
+    "emailLink": "yes",
+    "refNumber": "UAQ010",
+    "description": "Peaceful marina apartment in Umm Al Quwain",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Rent",
+      "refNo": "UAQ654321",
+      "completion": "2016",
+      "furnishing": "semi",
+      "truCheck": true,
+      "avgRent": "25000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Barwa",
+      "ownership": "leasehold",
+      "buildUpArea": "1050",
+      "usage": "3 years",
+      "parking": "1 car"
+    },
+    "buildingInfo": {
+      "name": "Marina View",
+      "year": "2016",
+      "floors": "12",
+      "pools": "no",
+      "parking": "open",
+      "area": "Umm Al Quwain Marina",
+      "elevators": "standard"
+    },
+    "amenities": ["security", "balcony"],
+    "regulatoryInfo": {
+      "permitNo": "UAQ321987",
+      "zone": "Marina",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "321456",
+      "rera": "0123456",
+      "brn": "UAQ321456"
+    },
+    "coordinates": {
+      "lat": 25.5651,
+      "lng": 55.5552
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Palm Jumeirah Luxury Apartment",
+    "location": "Palm Jumeirah",
+    "price": "5200000",
+    "beds": 3,
+    "baths": 4,
+    "sqft": 2200,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/palm_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Dubai",
+    "tags": ["Palm", "Luxury", "Beachfront"],
+    "developer": "Nakheel",
+    "isOffPlan": false,
+    "paymentPlan": "yearly",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "PJ011",
+    "description": "Ultra-luxury apartment on Palm Jumeirah",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Sale",
+      "refNo": "PJ789654",
+      "completion": "2022",
+      "furnishing": "fully",
+      "truCheck": true,
+      "avgRent": "280000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Nakheel",
+      "ownership": "freehold",
+      "buildUpArea": "2200",
+      "usage": "residential",
+      "parking": "2 covered"
+    },
+    "buildingInfo": {
+      "name": "Palm Crown",
+      "year": "2022",
+      "floors": "50",
+      "pools": "infinity",
+      "parking": "valet",
+      "area": "Palm Jumeirah",
+      "elevators": "private"
+    },
+    "amenities": ["beach", "pool", "spa", "concierge"],
+    "regulatoryInfo": {
+      "permitNo": "PJ456987",
+      "zone": "Palm",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "456789",
+      "rera": "1234567",
+      "brn": "PJ456789"
+    },
+    "coordinates": {
+      "lat": 25.1136,
+      "lng": 55.1375
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Downtown Burj Khalifa View",
+    "location": "Downtown Dubai",
+    "price": "3800000",
+    "beds": 2,
+    "baths": 3,
+    "sqft": 1600,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/downtown_apt1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Dubai",
+    "tags": ["Burj View", "Downtown", "Premium"],
+    "developer": "Emaar",
+    "isOffPlan": true,
+    "paymentPlan": "installment",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "DT012",
+    "description": "Premium apartment with direct Burj Khalifa views",
+    "propertyInfo": {
+      "type": "Apartment",
+      "purpose": "Sale",
+      "refNo": "DT123456",
+      "completion": "2024",
+      "furnishing": "fully",
+      "truCheck": true,
+      "avgRent": "160000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Emaar",
+      "ownership": "freehold",
+      "buildUpArea": "1600",
+      "usage": "residential",
+      "parking": "2 covered"
+    },
+    "buildingInfo": {
+      "name": "Burj View Tower",
+      "year": "2024",
+      "floors": "60",
+      "pools": "sky",
+      "parking": "smart",
+      "area": "Downtown Dubai",
+      "elevators": "express"
+    },
+    "amenities": ["gym", "pool", "concierge", "lounge"],
+    "regulatoryInfo": {
+      "permitNo": "DT654321",
+      "zone": "Downtown",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "789456",
+      "rera": "2345678",
+      "brn": "DT789456"
+    },
+    "coordinates": {
+      "lat": 25.1972,
+      "lng": 55.2744
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "Al Ain Garden Villa",
+    "location": "Al Ain",
+    "price": "1200000",
+    "beds": 4,
+    "baths": 4,
+    "sqft": 2600,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/alain_villa1.jpg"],
+    "videos": [],
+    "propertyType": "Villa",
+    "state": "Al Ain",
+    "tags": ["Garden", "Family", "Oasis"],
+    "developer": "Aldar",
+    "isOffPlan": false,
+    "paymentPlan": "quarterly",
+    "whatsappLink": "yes",
+    "emailLink": "no",
+    "refNumber": "AA013",
+    "description": "Spacious garden villa in Al Ain oasis city",
+    "propertyInfo": {
+      "type": "Villa",
+      "purpose": "Sale",
+      "refNo": "AA987123",
+      "completion": "2019",
+      "furnishing": "semi",
+      "truCheck": true,
+      "avgRent": "45000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Aldar",
+      "ownership": "freehold",
+      "buildUpArea": "2600",
+      "usage": "residential",
+      "parking": "3 cars"
+    },
+    "buildingInfo": {
+      "name": "Garden Oasis",
+      "year": "2019",
+      "floors": "2",
+      "pools": "private",
+      "parking": "covered",
+      "area": "Al Ain Central",
+      "elevators": "none"
+    },
+    "amenities": ["garden", "pool", "playground"],
+    "regulatoryInfo": {
+      "permitNo": "AA123987",
+      "zone": "Residential",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "987123",
+      "rera": "3456789",
+      "brn": "AA987123"
+    },
+    "coordinates": {
+      "lat": 24.1302,
+      "lng": 55.8023
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "International City Studio",
+    "location": "International City",
+    "price": "180000",
+    "beds": 0,
+    "baths": 1,
+    "sqft": 450,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/ic_studio1.jpg"],
+    "videos": [],
+    "propertyType": "Apartment",
+    "state": "Dubai",
+    "tags": ["Studio", "Budget", "Investment"],
+    "developer": "Nakheel",
+    "isOffPlan": false,
+    "paymentPlan": "monthly",
+    "whatsappLink": "no",
+    "emailLink": "no",
+    "refNumber": "IC014",
+    "description": "Affordable studio apartment in International City",
+    "propertyInfo": {
+      "type": "Studio",
+      "purpose": "Rent",
+      "refNo": "IC456321",
+      "completion": "2015",
+      "furnishing": "no",
+      "truCheck": true,
+      "avgRent": "12000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "Nakheel",
+      "ownership": "leasehold",
+      "buildUpArea": "450",
+      "usage": "2 years",
+      "parking": "public"
+    },
+    "buildingInfo": {
+      "name": "China Cluster",
+      "year": "2015",
+      "floors": "8",
+      "pools": "no",
+      "parking": "street",
+      "area": "International City",
+      "elevators": "basic"
+    },
+    "amenities": ["security"],
+    "regulatoryInfo": {
+      "permitNo": "IC321654",
+      "zone": "Community",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "321789",
+      "rera": "4567890",
+      "brn": "IC321789"
+    },
+    "coordinates": {
+      "lat": 25.1448,
+      "lng": 55.3921
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  },
+  {
+    "title": "JLT Lake View Office",
+    "location": "Jumeirah Lake Towers",
+    "price": "950000",
+    "beds": 0,
+    "baths": 1,
+    "sqft": 800,
+    "images": ["https://res.cloudinary.com/dqt60inwv/image/upload/v1760422709/jlt_office1.jpg"],
+    "videos": [],
+    "propertyType": "Commercial",
+    "state": "Dubai",
+    "tags": ["Office", "JLT", "Lake View"],
+    "developer": "DMCC",
+    "isOffPlan": false,
+    "paymentPlan": "monthly",
+    "whatsappLink": "yes",
+    "emailLink": "yes",
+    "refNumber": "JLT015",
+    "description": "Compact office space with lake views in JLT",
+    "propertyInfo": {
+      "type": "Office",
+      "purpose": "Sale",
+      "refNo": "JLT789123",
+      "completion": "2018",
+      "furnishing": "no",
+      "truCheck": true,
+      "avgRent": "48000",
+      "currentStatus": "Available"
+    },
+    "validatedInfo": {
+      "developer": "DMCC",
+      "ownership": "commercial",
+      "buildUpArea": "800",
+      "usage": "commercial",
+      "parking": "allocated"
+    },
+    "buildingInfo": {
+      "name": "Lake Plaza",
+      "year": "2018",
+      "floors": "25",
+      "pools": "no",
+      "parking": "business",
+      "area": "JLT Cluster",
+      "elevators": "standard"
+    },
+    "amenities": ["reception", "security"],
+    "regulatoryInfo": {
+      "permitNo": "JLT123789",
+      "zone": "Commercial",
+      "agency": "68ede678f68582108697bfd4",
+      "ded": "789654",
+      "rera": "5678901",
+      "brn": "JLT789654"
+    },
+    "coordinates": {
+      "lat": 25.0763,
+      "lng": 55.1411
+    },
+    "similarTransactions": [],
+    "connectionReq": []
+  }
+]

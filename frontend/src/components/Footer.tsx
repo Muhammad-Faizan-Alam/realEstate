@@ -77,7 +77,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground w-screen">
+    <footer className="bg-primary text-primary-foreground w-[100%]">
       {/* Partner Logos Section */}
       {/* <div className="border-b border-primary-foreground/10 bg-gradient-to-r from-blue-800 via-blue-700 to-blue-600 py-12">
         <div className="container mx-auto px-6">

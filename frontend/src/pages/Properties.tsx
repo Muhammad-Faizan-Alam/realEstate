@@ -7,38 +7,38 @@ import { popularAreas, faqData, apartmentTypes } from "@/data/apartmentData";
 
 // Utility function to calculate distance between coordinates
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371; // Earth radius in km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
+    const R = 6371; // Earth radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
 };
 
 // Function to filter properties within radius
 const filterPropertiesWithinRadius = (
-  properties: any[], 
-  centerLat: number, 
-  centerLng: number, 
-  radiusKm: number = 10
+    properties: any[],
+    centerLat: number,
+    centerLng: number,
+    radiusKm: number = 10
 ) => {
-  return properties.filter(property => {
-    // Check if property has coordinates
-    if (!property.latitude || !property.longitude) {
-      return false; // Skip properties without coordinates
-    }
-    
-    const distance = calculateDistance(
-      centerLat, 
-      centerLng,
-      parseFloat(property.latitude),
-      parseFloat(property.longitude)
-    );
-    return distance <= radiusKm;
-  });
+    return properties.filter(property => {
+        // Check if property has coordinates
+        if (!property.coordinates.lat || !property.coordinates.lng) {
+            return false; // Skip properties without coordinates
+        }
+
+        const distance = calculateDistance(
+            centerLat,
+            centerLng,
+            parseFloat(property.coordinates.lat),
+            parseFloat(property.coordinates.lng)
+        );
+        return distance <= radiusKm;
+    });
 };
 
 const Properties = () => {
@@ -68,7 +68,7 @@ const Properties = () => {
                 });
                 const data = await response.json();
                 console.log("Fetched Properties:", data);
-                
+
                 setPropertyType(searchParams.get("property") || "apartment");
                 let transactionType = searchParams.get("type");
                 if (searchParams.get("type") === "buy") {
@@ -82,15 +82,15 @@ const Properties = () => {
                 const searchLocation = searchParams.get("location");
 
                 if (searchLat && searchLng) {
-                  setSelectedCoordinates({
-                    lat: parseFloat(searchLat),
-                    lng: parseFloat(searchLng)
-                  });
-                  setIsFilteringByRadius(true);
+                    setSelectedCoordinates({
+                        lat: parseFloat(searchLat),
+                        lng: parseFloat(searchLng)
+                    });
+                    setIsFilteringByRadius(true);
                 }
 
                 if (searchLocation) {
-                  setLocation(searchLocation);
+                    setLocation(searchLocation);
                 }
 
                 if (!searchParams.get("property")) {
@@ -100,14 +100,14 @@ const Properties = () => {
                 }
 
                 // Filter by propertyType and transactionType
-                const filteredType = data.filter((p: any) => 
-                  p.propertyType?.toLowerCase() === (searchParams.get("property")?.toLowerCase())
+                const filteredType = data.filter((p: any) =>
+                    p.propertyType?.toLowerCase() === (searchParams.get("property")?.toLowerCase())
                 );
-                const filtered = transactionType ? 
-                  filteredType.filter((p: any) => 
-                    p.propertyInfo?.purpose?.toLowerCase() === transactionType.toLowerCase()
-                  ) : filteredType;
-                
+                const filtered = transactionType ?
+                    filteredType.filter((p: any) =>
+                        p.propertyInfo?.purpose?.toLowerCase() === transactionType.toLowerCase()
+                    ) : filteredType;
+
                 console.log("Filtered Properties by type:", filtered);
                 setProperties(filtered);
                 setFilteredProperties(filtered);
@@ -150,11 +150,11 @@ const Properties = () => {
         setIsOffPlan(urlIsOffPlan);
 
         if (urlLat && urlLng) {
-          setSelectedCoordinates({
-            lat: parseFloat(urlLat),
-            lng: parseFloat(urlLng)
-          });
-          setIsFilteringByRadius(true);
+            setSelectedCoordinates({
+                lat: parseFloat(urlLat),
+                lng: parseFloat(urlLng)
+            });
+            setIsFilteringByRadius(true);
         }
 
         if (urlPriceRange) {
@@ -178,14 +178,13 @@ const Properties = () => {
             // First apply radius filtering if coordinates are selected
             if (selectedCoordinates && isFilteringByRadius) {
                 filtered = filterPropertiesWithinRadius(
-                    filtered, 
-                    selectedCoordinates.lat, 
-                    selectedCoordinates.lng, 
+                    filtered,
+                    selectedCoordinates.lat,
+                    selectedCoordinates.lng,
                     10 // 10km radius
                 );
                 console.log(`Properties within 10km radius: ${filtered.length}`);
             }
-
             // Then apply other filters
             filtered = filtered.filter((apartment) => {
                 const bedMatch =
@@ -224,29 +223,29 @@ const Properties = () => {
     }, [beds, baths, location, priceRange, isOffPlan, properties, selectedCoordinates, isFilteringByRadius]);
 
     // Filter by state slug (for URL like /apartments/in-downtown-dubai)
-    useEffect(() => {
-        if (!properties.length) return;
+    // useEffect(() => {
+    //     if (!properties.length) return;
 
-        const selectedType = searchParams.get("property")?.toLowerCase();
+    //     const selectedType = searchParams.get("property")?.toLowerCase();
 
-        // ✅ If no property param, show all
-        if (!selectedType) {
-            setFilteredProperties(properties);
-            return;
-        }
+    //     // ✅ If no property param, show all
+    //     if (!selectedType) {
+    //         setFilteredProperties(properties);
+    //         return;
+    //     }
 
-        let filtered = properties.filter((property) => {
-            const typeMatch = property.propertyType?.toLowerCase() === selectedType;
+    //     let filtered = properties.filter((property) => {
+    //         const typeMatch = property.propertyType?.toLowerCase() === selectedType;
 
-            const stateMatch = state
-                ? property.state?.toLowerCase().replace(/\s+/g, "-") === state.toLowerCase()
-                : true;
+    //         const stateMatch = state
+    //             ? property.state?.toLowerCase().replace(/\s+/g, "-") === state.toLowerCase()
+    //             : true;
 
-            return typeMatch && stateMatch;
-        });
+    //         return typeMatch && stateMatch;
+    //     });
 
-        setFilteredProperties(filtered);
-    }, [properties, state, searchParams]);
+    //     setFilteredProperties(filtered);
+    // }, [properties, state, searchParams]);
 
     const formatPrice = (price: number) => {
         if (price >= 1000000) {

@@ -86,3 +86,13 @@ exports.verifyProperty = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+// Seed properties
+// exports.SeedProperty = async (req, res) => {
+//   try {
+    
+//     res.status(201).json(property);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// };
