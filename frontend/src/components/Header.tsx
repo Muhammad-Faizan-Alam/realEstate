@@ -58,7 +58,7 @@ const Header = () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
           method: "GET",
-          credentials: "include", // ✅ cookie sent automatically
+          // credentials: "include", // ✅ cookie sent automatically
         });
 
         if (res.ok) {
@@ -150,7 +150,7 @@ const Header = () => {
                         try {
                           const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
                             method: "POST",
-                            credentials: "include", // ✅ send cookies
+                            // credentials: "include", // ✅ send cookies
                           });
 
                           if (res.ok) {
