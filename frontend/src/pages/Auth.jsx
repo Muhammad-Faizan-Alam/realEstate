@@ -22,7 +22,7 @@ const Auth = () => {
 
         try {
             if (isLogin) {
-                const res = await fetch("http://localhost:5000/api/auth/login", {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -39,7 +39,7 @@ const Auth = () => {
                     alert("Login failed: " + data.msg); // Show alert on failure
                 }
             } else {
-                const res = await fetch("http://localhost:5000/api/auth/register", {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name: formData.name, email: formData.email, password: formData.password, role: formData.role }),

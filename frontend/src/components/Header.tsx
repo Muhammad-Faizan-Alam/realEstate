@@ -148,7 +148,7 @@ const Header = () => {
                     <DropdownMenuItem
                       onClick={async () => {
                         try {
-                          const res = await fetch("http://localhost:5000/api/auth/logout", {
+                          const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
                             method: "POST",
                             credentials: "include", // ✅ send cookies
                           });
