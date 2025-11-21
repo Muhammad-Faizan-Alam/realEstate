@@ -48,8 +48,9 @@ interface ApartmentContentProps {
   setBaths: (value: string) => void;
   isOffPlan: boolean;
   setIsOffPlan: (value: boolean) => void;
-  location: string;
-  setLocation: (value: string) => void;
+  location?: string;
+  setLocation?: (value: string) => void;
+  isLoading?: boolean;
   priceRange: number[];
   setPriceRange: (value: number[]) => void;
   formatPrice: (price: number) => string;
@@ -66,6 +67,8 @@ interface ApartmentContentProps {
   transactionType?: string;
   selectedCoordinates?: { lat: number; lng: number } | null;
   isFilteringByRadius?: boolean;
+  radius?: number;
+  setRadius?: (value: number) => void;
   onToggleRadiusFilter?: () => void;
   onClearRadiusFilter?: () => void;
 }
@@ -95,6 +98,7 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
   transactionType,
   selectedCoordinates,
   isFilteringByRadius = false,
+  isLoading = false,
   onToggleRadiusFilter,
   onClearRadiusFilter,
 }) => {
@@ -232,7 +236,28 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
               </div>
             </div>
 
-            {filteredApartments.length > 0 ? (
+            {isLoading ? (
+              <div
+                className={`grid gap-6 mb-8 ${
+                  viewType === "grid"
+                    ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+                    : "grid-cols-1"
+                }`}
+              >
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="animate-pulse">
+                    <div className="aspect-[4/3] bg-muted rounded-md mb-3" />
+                    <div className="h-4 bg-muted rounded w-3/4 mb-2" />
+                    <div className="h-6 bg-muted rounded w-1/2 mb-4" />
+                    <div className="flex items-center gap-2">
+                      <div className="h-4 bg-muted rounded w-1/4" />
+                      <div className="h-4 bg-muted rounded w-1/4" />
+                      <div className="h-4 bg-muted rounded w-1/4" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : filteredApartments.length > 0 ? (
               <div
                 className={`grid gap-6 mb-8 ${
                   viewType === "grid"
@@ -244,7 +269,7 @@ const ApartmentContent: React.FC<ApartmentContentProps> = ({
                   <PropertyCard 
                     key={property._id} 
                     property={property}
-                    showDistance={isFilteringByRadius && selectedCoordinates}
+                    showDistance={!!(isFilteringByRadius && selectedCoordinates)}
                     centerCoordinates={selectedCoordinates}
                   />
                 ))}

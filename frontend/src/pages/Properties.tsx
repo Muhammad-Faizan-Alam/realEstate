@@ -78,11 +78,13 @@ const Properties = () => {
     const [properties, setProperties] = useState<any[]>([]);
     const [filteredProperties, setFilteredProperties] = useState<any[]>([]);
     const [developers, setDevelopers] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isFilteringByRadius, setIsFilteringByRadius] = useState(false);
 
     // Fetch properties
     useEffect(() => {
         const fetchProjects = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/properties`, {
                     credentials: 'include',
@@ -129,6 +131,8 @@ const Properties = () => {
                 setFilteredProperties(filtered);
             } catch (error) {
                 console.error("❌ Error fetching properties:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchProjects();
@@ -323,6 +327,7 @@ const Properties = () => {
                 onClearRadiusFilter={clearRadiusFilter}
                 radius={radius}
                 setRadius={setRadius}
+                isLoading={isLoading}
             />
             <Footer />
         </div>
