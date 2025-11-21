@@ -19,4 +19,16 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Add this for SPA routing in production
+  build: {
+    outDir: "dist",
+    rollupOptions: {
+      // Ensure proper handling of HTML5 history API
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+      },
+    },
+  },
+  // Important for SPA routing
+  base: "/",
 }));
