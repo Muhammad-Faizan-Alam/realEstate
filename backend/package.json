@@ -17,7 +17,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.8.7",
     "morgan": "^1.10.0",
-    "nanoid": "^5.1.5"
+    "nanoid": "^5.1.5",
+    "serverless-http": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
