@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Agent = require("../models/Agent");
 
 // Get all agents
@@ -212,7 +213,7 @@ exports.repostStory = async (req, res) => {
       return res.status(400).json({ message: 'Invalid story ID' });
     }
 
-    const agent = await Agent.findById(agentId);
+    const agent = await Agent.findOne({user: agentId});
     if (!agent) {
       return res.status(404).json({ message: 'Agent not found' });
     }

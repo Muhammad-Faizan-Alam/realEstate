@@ -368,7 +368,7 @@ const StoriesGallery = ({ agent }) => {
     // Repost story
     const handleRepostStory = async (storyId) => {
         try {
-            await axios.post(`${API_URL}/stories/${storyId}/repost`, {
+            await axios.post(`${API_URL}/stories/${storyId}/repost`, {}, {
                 withCredentials: true
             });
             toast.success('Story reposted successfully');

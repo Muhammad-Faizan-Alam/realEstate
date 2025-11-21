@@ -5,6 +5,20 @@ import Footer from "@/components/Footer";
 import ApartmentContent from "@/components/apartments/ApartmentContent";
 import { popularAreas, faqData, apartmentTypes } from "@/data/apartmentData";
 
+const normalizeCoord = (val: any): number | null => {
+    if (!val) return null;
+
+    if (typeof val === "number") return val;
+    if (typeof val === "string") return parseFloat(val);
+
+    // Mongo nested structure
+    if (typeof val === "object" && "$numberDouble" in val) {
+        return parseFloat(val.$numberDouble);
+    }
+
+    return null;
+};
+
 // Utility function to calculate distance between coordinates
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
     const R = 6371; // Earth radius in km
@@ -23,22 +37,29 @@ const filterPropertiesWithinRadius = (
     properties: any[],
     centerLat: number,
     centerLng: number,
-    radiusKm: number = 10
+    radiusKm: number = 50  // Increased to 50km to catch more properties
 ) => {
-    return properties.filter(property => {
-        // Check if property has coordinates
-        if (!property.coordinates.lat || !property.coordinates.lng) {
-            return false; // Skip properties without coordinates
+    const filtered = properties.filter(property => {
+        const lat = normalizeCoord(property.coordinates?.lat);
+        const lng = normalizeCoord(property.coordinates?.lng);
+
+        if (lat === null || lng === null) {
+            console.log(`Property ${property.title} has no coordinates`);
+            return false;
         }
 
-        const distance = calculateDistance(
-            centerLat,
-            centerLng,
-            parseFloat(property.coordinates.lat),
-            parseFloat(property.coordinates.lng)
-        );
+        const distance = calculateDistance(centerLat, centerLng, lat, lng);
+        
+        // Debug logging
+        console.log(`📍 ${property.title}: ${distance.toFixed(2)}km from search center`);
+        console.log(`   Property coords: ${lat}, ${lng}`);
+        console.log(`   Search coords: ${centerLat}, ${centerLng}`);
+        
         return distance <= radiusKm;
     });
+
+    console.log(`🎯 Radius filter: ${filtered.length} properties within ${radiusKm}km`);
+    return filtered;
 };
 
 const Properties = () => {
@@ -51,8 +72,8 @@ const Properties = () => {
     const [beds, setBeds] = useState("any");
     const [baths, setBaths] = useState("any");
     const [isOffPlan, setIsOffPlan] = useState(false);
-    const [location, setLocation] = useState("any");
     const [selectedCoordinates, setSelectedCoordinates] = useState<{ lat: number; lng: number } | null>(null);
+    const [radius, setRadius] = useState<number>(50); // Added radius state
 
     const [properties, setProperties] = useState<any[]>([]);
     const [filteredProperties, setFilteredProperties] = useState<any[]>([]);
@@ -67,30 +88,25 @@ const Properties = () => {
                     credentials: 'include',
                 });
                 const data = await response.json();
-                console.log("Fetched Properties:", data);
+                console.log("🏠 Fetched Properties:", data.length);
 
                 setPropertyType(searchParams.get("property") || "apartment");
                 let transactionType = searchParams.get("type");
                 if (searchParams.get("type") === "buy") {
                     transactionType = "sale";
                 }
-                console.log("Transaction Type:", transactionType);
+                console.log("💰 Transaction Type:", transactionType);
 
                 // Check if we have coordinates from search
                 const searchLat = searchParams.get("lat");
                 const searchLng = searchParams.get("lng");
-                const searchLocation = searchParams.get("location");
 
                 if (searchLat && searchLng) {
-                    setSelectedCoordinates({
-                        lat: parseFloat(searchLat),
-                        lng: parseFloat(searchLng)
-                    });
+                    const lat = parseFloat(searchLat);
+                    const lng = parseFloat(searchLng);
+                    setSelectedCoordinates({ lat, lng });
                     setIsFilteringByRadius(true);
-                }
-
-                if (searchLocation) {
-                    setLocation(searchLocation);
+                    console.log(`🎯 Setting coordinates from URL: ${lat}, ${lng}`);
                 }
 
                 if (!searchParams.get("property")) {
@@ -108,11 +124,11 @@ const Properties = () => {
                         p.propertyInfo?.purpose?.toLowerCase() === transactionType.toLowerCase()
                     ) : filteredType;
 
-                console.log("Filtered Properties by type:", filtered);
+                console.log(`🔍 Filtered by type: ${filtered.length} properties`);
                 setProperties(filtered);
                 setFilteredProperties(filtered);
             } catch (error) {
-                console.error("Error fetching properties:", error);
+                console.error("❌ Error fetching properties:", error);
             }
         };
         fetchProjects();
@@ -138,16 +154,19 @@ const Properties = () => {
     useEffect(() => {
         const urlBeds = searchParams.get("beds") || "any";
         const urlBaths = searchParams.get("baths") || "any";
-        const urlLocation = searchParams.get("location") || "any";
         const urlPriceRange = searchParams.get("priceRange");
         const urlIsOffPlan = searchParams.get("isOffPlan") === "true";
         const urlLat = searchParams.get("lat");
         const urlLng = searchParams.get("lng");
+        const urlRadius = searchParams.get("radius");
 
         setBeds(urlBeds);
         setBaths(urlBaths);
-        setLocation(urlLocation);
         setIsOffPlan(urlIsOffPlan);
+
+        if (urlRadius) {
+            setRadius(parseInt(urlRadius));
+        }
 
         if (urlLat && urlLng) {
             setSelectedCoordinates({
@@ -173,79 +192,76 @@ const Properties = () => {
     // Apply filters including radius filtering
     useEffect(() => {
         const applyFilters = () => {
-            let filtered = properties;
+            let filtered = [...properties];
 
-            // First apply radius filtering if coordinates are selected
+            console.log(`🎯 Applying filters to ${filtered.length} properties`);
+            console.log(`📍 Radius filtering: ${isFilteringByRadius}`);
+            console.log(`📍 Coordinates:`, selectedCoordinates);
+            console.log(`📏 Radius: ${radius}km`);
+
+            // 1) Radius Filter First
             if (selectedCoordinates && isFilteringByRadius) {
                 filtered = filterPropertiesWithinRadius(
                     filtered,
                     selectedCoordinates.lat,
                     selectedCoordinates.lng,
-                    10 // 10km radius
+                    radius
                 );
-                console.log(`Properties within 10km radius: ${filtered.length}`);
             }
-            // Then apply other filters
-            filtered = filtered.filter((apartment) => {
+
+            // 2) Standard Filters (without location)
+            filtered = filtered.filter((item) => {
+                // Beds
                 const bedMatch =
                     beds === "any" ||
-                    (beds === "studio" && apartment.beds === 0) ||
-                    (beds !== "studio" && apartment.beds?.toString() === beds);
+                    (beds === "studio" && item.beds === 0) ||
+                    item.beds?.toString() === beds;
 
+                // Baths
                 const bathMatch =
-                    baths === "any" || apartment.baths?.toString() === baths;
+                    baths === "any" ||
+                    item.baths?.toString() === baths;
 
-                const locationMatch =
-                    location === "any" ||
-                    apartment.location?.toLowerCase().includes(location.toLowerCase());
-
-                // Handle price conversion safely
+                // Price
                 let numericPrice = 0;
-                if (apartment.price) {
-                    if (typeof apartment.price === 'string') {
-                        numericPrice = Number(apartment.price.replace(/[^\d]/g, "")) || 0;
-                    } else if (typeof apartment.price === 'number') {
-                        numericPrice = apartment.price;
+                if (item.price) {
+                    if (typeof item.price === "string") {
+                        numericPrice = Number(item.price.replace(/[^\d]/g, "")) || 0;
+                    } else {
+                        numericPrice = item.price;
                     }
                 }
 
                 const priceMatch =
-                    numericPrice >= priceRange[0] && numericPrice <= priceRange[1];
+                    numericPrice >= priceRange[0] &&
+                    numericPrice <= priceRange[1];
 
-                const offPlanMatch = !isOffPlan || apartment.isOffPlan;
+                // Off-plan
+                const offPlanMatch = !isOffPlan || item.isOffPlan;
 
-                return bedMatch && bathMatch && locationMatch && priceMatch && offPlanMatch;
+                return (
+                    bedMatch &&
+                    bathMatch &&
+                    priceMatch &&
+                    offPlanMatch
+                );
             });
 
+            console.log("✅ Final filtered properties:", filtered.length, filtered);
             setFilteredProperties(filtered);
         };
+
         applyFilters();
-    }, [beds, baths, location, priceRange, isOffPlan, properties, selectedCoordinates, isFilteringByRadius]);
-
-    // Filter by state slug (for URL like /apartments/in-downtown-dubai)
-    // useEffect(() => {
-    //     if (!properties.length) return;
-
-    //     const selectedType = searchParams.get("property")?.toLowerCase();
-
-    //     // ✅ If no property param, show all
-    //     if (!selectedType) {
-    //         setFilteredProperties(properties);
-    //         return;
-    //     }
-
-    //     let filtered = properties.filter((property) => {
-    //         const typeMatch = property.propertyType?.toLowerCase() === selectedType;
-
-    //         const stateMatch = state
-    //             ? property.state?.toLowerCase().replace(/\s+/g, "-") === state.toLowerCase()
-    //             : true;
-
-    //         return typeMatch && stateMatch;
-    //     });
-
-    //     setFilteredProperties(filtered);
-    // }, [properties, state, searchParams]);
+    }, [
+        beds,
+        baths,
+        priceRange,
+        isOffPlan,
+        properties,
+        selectedCoordinates,
+        isFilteringByRadius,
+        radius,
+    ]);
 
     const formatPrice = (price: number) => {
         if (price >= 1000000) {
@@ -257,12 +273,12 @@ const Properties = () => {
     const resetFilters = () => {
         setBeds("any");
         setBaths("any");
-        setLocation("any");
         setPriceRange([400000, 5000000]);
         setIsOffPlan(false);
         setSelectedCoordinates(null);
         setIsFilteringByRadius(false);
-        setFilteredProperties(properties); // ✅ restore original list
+        setRadius(50);
+        setFilteredProperties(properties);
     };
 
     // Function to handle radius filter toggle
@@ -286,8 +302,6 @@ const Properties = () => {
                 setBaths={setBaths}
                 isOffPlan={isOffPlan}
                 setIsOffPlan={setIsOffPlan}
-                location={location}
-                setLocation={setLocation}
                 priceRange={priceRange}
                 setPriceRange={setPriceRange}
                 formatPrice={formatPrice}
@@ -307,6 +321,8 @@ const Properties = () => {
                 isFilteringByRadius={isFilteringByRadius}
                 onToggleRadiusFilter={toggleRadiusFilter}
                 onClearRadiusFilter={clearRadiusFilter}
+                radius={radius}
+                setRadius={setRadius}
             />
             <Footer />
         </div>
