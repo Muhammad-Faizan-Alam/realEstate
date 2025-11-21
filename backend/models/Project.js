@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-const { nanoid } = require('nanoid'); // install karo: npm i nanoid
-
 const projectSchema = new mongoose.Schema({
-  id: { type: String, default: () => nanoid(), unique: true }, // auto-generate id
+  // Remove custom id and use built-in _id
   title: { type: String, required: true },
   location: { type: String },
   area: { type: String },
@@ -13,7 +11,15 @@ const projectSchema = new mongoose.Schema({
   city: { type: String },
   whatsappLink: { type: String },
   developer: { type: mongoose.Schema.Types.ObjectId, ref: 'Developer' },
-}, { timestamps: true });
+}, { 
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
 
+// If you need a custom ID, you can create a virtual or method
+projectSchema.virtual('customId').get(function() {
+  return this._id.toString();
+});
 
 module.exports = mongoose.model('Project', projectSchema);
